@@ -1,0 +1,6 @@
+framework module Pods_Afantizz {
+  umbrella header "Pods-Afantizz-umbrella.h"
+
+  export *
+  module * { export * }
+}
