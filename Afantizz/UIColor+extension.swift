@@ -50,4 +50,16 @@ extension UIColor {
         return UIColor.colorWithHex(hex: 0x596167)
     }
     
+    class var hxf5f5f5: UIColor {
+        return UIColor.colorWithHex(hex: 0xf5f5f5)
+    }
+    
+    class var hxedeff3: UIColor {
+        return UIColor.colorWithHex(hex: 0xedeff3)
+    }
+    
+    class var hx4e4e4e: UIColor {
+        return UIColor.colorWithHex(hex: 0x4e4e4e)
+    }
+    
 }

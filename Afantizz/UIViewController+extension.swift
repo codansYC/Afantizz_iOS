@@ -74,3 +74,20 @@ extension UIViewController {
     }
 
 }
+
+// MARK: - dialog
+extension UIViewController {
+    
+    func showLoading(msg: String? = nil) {
+        
+    }
+    
+    func show(message: String, autoHideDelay: TimeInterval = 1) {
+        HUDManager.show(message: message, in: view, autoHideDelay: autoHideDelay)
+    }
+    
+    func showNetWorkError() {
+        HUDManager.showNetworkError(in: view)
+    }
+
+}

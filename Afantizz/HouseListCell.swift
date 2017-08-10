@@ -17,8 +17,11 @@ class HouseListCell: UITableViewCell {
     let dateLabel = UILabel()
     let trafficLabel = UILabel()
     
-    var house: House! {
+    var house: House? {
         didSet{
+            guard let house = house else {
+                return
+            } 
             if !house.images.isEmpty {
                 let url = URL(string: ServerUrl.basicUrl + house.images[0])
                 imageV.sd_setImage(with: url)

@@ -29,7 +29,7 @@ class WebViewController: BaseController, NJKWebViewProgressDelegate, UIWebViewDe
         return p
     }()
     
-    init(URLStr urlStr: String?) {
+    init(URLStr urlStr: String? = nil) {
         super.init(nibName: nil, bundle: nil)
         self.hidesBottomBarWhenPushed = true
         self.url = URL(string: urlStr ?? "http") ?? URL(string: "http")

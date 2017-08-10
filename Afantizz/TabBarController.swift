@@ -16,6 +16,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.hx888b9a], for: .normal)
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.hx337ab7], for: .selected)
         tabBar.tintColor = UIColor.hx337ab7
+        self.delegate = self
         addChildren()
     }
     
@@ -23,8 +24,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     dynamic func addChildren() -> Void {
         
         addChild(HouseListController(), title: "房源", image: UIImage(named: "home"))
-        let releaseWebVC = WebViewController(URLStr: "http://afantizz.com/m/release.html")
-        addChild(releaseWebVC, title: "发布", image: UIImage(named: "edit"))
+        addChild(ReleaseController(), title: "发布", image: UIImage(named: "edit"))
         let mineWebVC = WebViewController(URLStr: "http://afantizz.com/m/mine.html")
         addChild(mineWebVC, title: "我的", image: UIImage(named: "mine"))
         
@@ -39,11 +39,36 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         addChildViewController(nav)
     }
     
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        guard (viewController as? UINavigationController)?.topViewController is ReleaseController else {
+            return true
+        }
+        
+        if Global.token != nil {
+            return true
+        }
+        
+        guard let token = UserDefaults.getToken() else {
+            let naviVC = NavigationController(rootViewController: LoginController())
+            UIViewController.getCurrentController()?.present(naviVC, animated: true, completion: nil)
+            return false
+        }
+        
+        Global.token = token
+        
+        return true
+    }
+    
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         let index = tabBarController.selectedIndex
-        if index != 0 {
-            let naviVC = tabBarController.viewControllers?[index] as? UINavigationController
-            naviVC?.setNavigationBarHidden(true, animated: false)
+        switch index {
+        case 1:
+            guard let releaseVC = (viewController as? UINavigationController)?.topViewController as? ReleaseController else {
+                return
+            }
+            releaseVC.urlStr = ServerUrl.ReleaseH5.toMobileWeb() + "?token=" + (Global.token ?? "")
+        default:
+            break
         }
     }
     

@@ -15,6 +15,7 @@ class HouseListController: PagingController<House> {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "所有房源"
+        setUpViews()
         let params = ["district"  :"",
                       "subway"    :"",
                       "price"     :"",
@@ -27,6 +28,29 @@ class HouseListController: PagingController<House> {
         pagingVM?.listSource.asObservable().bind(to: tableView.rx.items(cellIdentifier: reuseIdentifier, cellType: HouseListCell.self)) { row, model, cell in
             cell.house = model
         }.addDisposableTo(disposeBag)
+    }
+    
+    func setUpViews() {
+        let searchV = CustomSearchView(frame: CGRect.init(x: 0, y: 0, width: Global.ScreenWidth, height: 50))
+        searchV.backgroundColor = UIColor.hxf5f5f5
+        searchV.isHidSystemBorder = true
+        searchV.fieldHeight = 35
+        let searchBar = searchV.searchBar
+        searchBar?.placeholder = "请输入关键字"
+        let searchBtn = UIButton()
+        
+        tableView.tableHeaderView = searchV
+        searchV.addSubview(searchBtn)
+        searchBtn.snp.makeConstraints { (make) in
+            make.edges.equalTo(searchV)
+        }
+        searchBtn.rx.tap.bind { [unowned self] in
+            let searchVC = HouseSearchController()
+            self.tabBarController?.tabBar.isHidden = true
+            self.addChildViewController(searchVC)
+            self.view.addSubview(searchVC.view)
+        }.addDisposableTo(disposeBag)
+
     }
     
     override func setUpTableView() {

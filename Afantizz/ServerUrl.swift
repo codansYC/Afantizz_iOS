@@ -11,11 +11,19 @@ import UIKit
 class ServerUrl: NSObject {
     
     /**基地址*/
-    static var basicUrl = "http://afantizz.com/"
+    static let basicUrl = "http://afantizz.com/"
     /**房源列表*/
-    static var houseList = "house/list"
+    static let houseList = "house/list"
     /**房源详情*/
-    static var houseDetail = "house/detail"
+    static let houseDetail = "house/detail"
+    /**房源详情*/
+    static let houseSearch = "house/search"
+    /**获取验证码*/
+    static let GetCaptcha = "login/captcha"
+    /**登录*/
+    static let Login = "login/login"
+    /**发布房源的的html文件*/
+    static let ReleaseH5 = "m_release.html"
 }
 
 extension String {

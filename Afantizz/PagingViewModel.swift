@@ -17,7 +17,6 @@ class PagingViewModel<T:HandyJSON>: BaseViewModel {
     var pullUrl = ""
     var params = [String : Any]()
     var listSource = Variable([T?]())
-    var loadDataStatus = Variable(LoadDataStatus.none)
     
     init(pullUrl: String, params: [String : Any]) {
         super.init()
@@ -36,13 +35,19 @@ class PagingViewModel<T:HandyJSON>: BaseViewModel {
     }
     
     func requestData() {
-        params["page"] = currentPage
-        Networker.request(url: pullUrl, params: params, success: { (jsonStr) in
+        params["page"] = self.currentPage
+        Networker.request(url: pullUrl, params: params, success: { [weak self] (jsonStr) in
             let newData = [T].deserialize(from: jsonStr)
-            self.handleNewData(data: newData)
-        }, error: { (errCode, errMsg) in
-            self.loadDataStatus.value = .error(errMsg: errMsg)
-        })
+            self?.handleNewData(data: newData)
+            }, error: { [weak self] (errCode, errMsg) in
+                guard let this = self else { return }
+                this.loadDataStatus.value = .error(errCode: errCode, errMsg: errMsg)
+                this.currentPage = max(this.currentPage-1, 1)
+            }, networkError: { [weak self] in
+                guard let this = self else { return }
+                this.loadDataStatus.value = .error(errCode: BizConsts.networkPoorCode, errMsg: BizConsts.networkPoorMsg)
+                this.currentPage = max(this.currentPage-1, 1)
+            })
     }
     
     func handleNewData(data:[T?]?) {
@@ -73,5 +78,5 @@ enum LoadDataStatus {
     case pullDownDone
     case pullUpDone
     case noMore
-    case error(errMsg: String)
+    case error(errCode: Int, errMsg: String)
 }

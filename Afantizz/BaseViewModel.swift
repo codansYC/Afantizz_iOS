@@ -2,7 +2,7 @@
 //  BaseViewModel.swift
 //  Afantizz
 //
-//  Created by lekuai on 2017/7/13.
+//  Created by yaunchao on 2017/7/13.
 //  Copyright © 2017年 lekuai. All rights reserved.
 //
 
@@ -12,7 +12,7 @@ import RxSwift
 
 class BaseViewModel: NSObject {
     
-//    var
+    var loadDataStatus = Variable(LoadDataStatus.none)
     
 }
 

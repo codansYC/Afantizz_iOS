@@ -11,7 +11,7 @@ import MJRefresh
 
 class ListController: TableController {
     
-    var tableView: UITableView!
+    
     var listVM: ListViewModel?
     
     override func viewDidLoad() {
@@ -19,7 +19,7 @@ class ListController: TableController {
         setUpTableView()
     }
     
-    func setUpTableView() {
+    override func setUpTableView() {
         tableView = UITableView(frame: CGRect.zero, style: .plain)
         view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in

@@ -10,15 +10,16 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
+typealias JsonString = String
 
-typealias SuccessClosure = (String) -> Void
+typealias SuccessClosure = (JsonString?) -> Void
 typealias ErrorClosure = (Int, String) -> Void
-typealias FailedClosure = (Error)->Void
+typealias NetworkErrorClosure = (Void)->Void
 
 class Networker: NSObject {
     
     //MARK: - 网络请求
-    static func request(url: String, params: [String: Any]? = nil, success: SuccessClosure? = nil, error: ErrorClosure? = nil) {
+    static func request(url: String, params: [String: Any]? = nil, success: SuccessClosure? = nil, error: ErrorClosure? = nil, networkError: NetworkErrorClosure?) {
         
         Alamofire.request(fixUrlStr(url), method: .post, parameters: params).responseJSON { (response) in
             switch response.result {
@@ -37,12 +38,14 @@ class Networker: NSObject {
                     return
                 }
                 
-                if let jsonStr = json["data"].rawString() {
-                    success?(jsonStr)
-                }
+                success?(json["data"].rawString())
                 
             case .failure(let error):
-                handleFailure(error: error as NSError)
+                let ns_err = error as NSError
+                if ns_err.code == BizConsts.networkPoorCode {
+                    networkError?()
+                }
+                handleFailure(error: ns_err)
             }
         }
     }
@@ -61,7 +64,7 @@ class Networker: NSObject {
     //MARK: - 请求失败（针对于网络异常以及传参错误）
     static func handleFailure(error: NSError) {
         switch error.code {
-        case -1009:
+        case BizConsts.networkPoorCode:
             print("网络异常")
         default:
             print("请检查url或者参数是否正确")

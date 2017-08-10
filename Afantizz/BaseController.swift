@@ -13,12 +13,19 @@ import RxCocoa
 class BaseController: UIViewController {
     
     lazy var disposeBag: DisposeBag = DisposeBag()
+    
+    // loading页
     let loadingView = LoadingBackgroundView()
     var isShowLodingView = false {
         didSet{
             showLoadingView(show: isShowLodingView)
         }
     }
+    
+    // error页
+    let errorBackgroudView = ErrorBackgroundView()
+    
+    var errBgDisposeBag: DisposeBag?
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -9,38 +9,50 @@
 import UIKit
 import MJRefresh
 import HandyJSON
+import RxSwift
+import RxCocoa
 
-class PagingController<T: HandyJSON>: BaseController {
+class PagingController<T: HandyJSON>: TableController {
     
-    var tableView: UITableView!
     var pagingVM: PagingViewModel<T>? {
         didSet{
             setUpPagingVMEvent()
         }
     }
     
+    var header: MJRefreshNormalHeader?
+    var footer: MJRefreshBackNormalFooter?
+    
+    var isAllowPullDown: Bool = true {
+        willSet{
+            if newValue != isAllowPullDown {
+                tableView.mj_header = newValue ? header : nil
+            }
+        }
+    }
+    
+    var isAllowPullUp: Bool = true {
+        willSet{
+            if newValue != isAllowPullDown {
+                tableView.mj_footer = newValue ? footer : nil
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpTableView()
         isShowLodingView = true
     }
     
-    func setUpTableView() {
-        tableView = UITableView(frame: CGRect.zero, style: .plain)
-        view.addSubview(tableView)
-        tableView.snp.makeConstraints { (make) in
-            make.edges.equalTo(view)
-        }
-        
-        // header
-        let header = MJRefreshNormalHeader(refreshingBlock: { [unowned self] in
+    override func setUpTableView() {
+        super.setUpTableView()
+        header = MJRefreshNormalHeader(refreshingBlock: { [unowned self] in
             self.pagingVM?.pullDownRefresh()
         })
         header?.stateLabel.isHidden = true
         tableView.mj_header = header
         
-        // footer
-        let footer = MJRefreshBackNormalFooter.init { [unowned self] in
+        footer = MJRefreshBackNormalFooter.init { [unowned self] in
             self.pagingVM?.pullUpLoadMore()
         }
         footer?.stateLabel.text = "上拉加载更多"
@@ -58,6 +70,7 @@ class PagingController<T: HandyJSON>: BaseController {
         guard let pagingVM = pagingVM  else {
             return
         }
+        //控制loading页的显隐以及tableView的上下拉
         pagingVM.loadDataStatus.asObservable()
             .takeUntil(pagingVM.rx.deallocated)
             .bind(onNext: { [unowned self] (status) in
@@ -73,14 +86,34 @@ class PagingController<T: HandyJSON>: BaseController {
                 self.tableView.mj_footer?.endRefreshing()
             case .noMore:
                 self.tableView.mj_footer?.endRefreshingWithNoMoreData()
-            case .error(let errMsg):
-                print(errMsg)
+            case .error(_, let errMsg):
+                HUDManager.show(message: errMsg, in: self.view, autoHideDelay: 1)
+                self.tableView.mj_footer?.endRefreshing()
             }
             self.tableView.mj_header.endRefreshing()
             if self.isShowLodingView {
                 self.isShowLodingView = false
             }
-            
         }).addDisposableTo(disposeBag)
+        
+        //控制errorBackgroudView的UI
+        
+        errBgDisposeBag = DisposeBag()
+        pagingVM.loadDataStatus.asObservable()
+            .shareReplay(1)
+            .takeUntil(pagingVM.rx.deallocated)
+            .bind { [unowned self] (status) in
+            switch status {
+            case .none:
+                break
+            case .noData:
+                self.errorBackgroudView.show(view: self.view, style: .noData)
+            case .error(let errCode, _) where errCode == BizConsts.networkPoorCode:
+                self.errorBackgroudView.show(view: self.view, style: .noWifi, buttonClick: pagingVM.pullDownRefresh)
+            default:
+                self.errorBackgroudView.errorStyle.value = .noError
+                self.errBgDisposeBag = nil
+            }
+        }.addDisposableTo(errBgDisposeBag!)
     }
 }
