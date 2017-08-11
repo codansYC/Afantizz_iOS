@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import JavaScriptCore
 
 class ReleaseController: WebViewController {
+    
+    var jsContext: JSContext?
 
     var urlStr: String? = "" {
         didSet{
@@ -29,6 +32,12 @@ class ReleaseController: WebViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "发布房源"
+        title = "发布"
+        
+        let context = webView.value(forKeyPath: "documentView.webView.mainFrame.javaScriptContext") as? JSContext
+        let m_model = JSInteraction()
+        m_model.jsContext = context
+        self.jsContext = context
+        self.jsContext?.setObject(m_model, forKeyedSubscript: "JSInteraction" as (NSCopying & NSObjectProtocol))
     }
 }

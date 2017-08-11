@@ -63,10 +63,12 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         let index = tabBarController.selectedIndex
         switch index {
         case 1:
+            
             guard let releaseVC = (viewController as? UINavigationController)?.topViewController as? ReleaseController else {
                 return
             }
-            releaseVC.urlStr = ServerUrl.ReleaseH5.toMobileWeb() + "?token=" + (Global.token ?? "")
+            let urlStr = ServerUrl.ReleaseH5.toMobileWeb() + "?token=" + (Global.token ?? "")
+            releaseVC.urlStr = urlStr
         default:
             break
         }

@@ -44,6 +44,7 @@
 		B97459B41F3AE55A00BAB115 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97459B31F3AE55A00BAB115 /* LoginController.swift */; };
 		B97459B61F3AF09500BAB115 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97459B51F3AF09500BAB115 /* LoginViewModel.swift */; };
 		B97459B81F3C769C00BAB115 /* UserDefaults+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97459B71F3C769B00BAB115 /* UserDefaults+extension.swift */; };
+		B97459BA1F3D500B00BAB115 /* JSInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97459B91F3D500B00BAB115 /* JSInteraction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +88,7 @@
 		B97459B31F3AE55A00BAB115 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		B97459B51F3AF09500BAB115 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		B97459B71F3C769B00BAB115 /* UserDefaults+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+extension.swift"; sourceTree = "<group>"; };
+		B97459B91F3D500B00BAB115 /* JSInteraction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSInteraction.swift; sourceTree = "<group>"; };
 		D94F947A97574C6978C16D6D /* Pods_Afantizz.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Afantizz.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -217,6 +219,7 @@
 				B97459951F3482E700BAB115 /* ErrorBackgroundView.swift */,
 				B97459971F38165200BAB115 /* BizConsts.swift */,
 				B97459A91F39A2BD00BAB115 /* Global.swift */,
+				B97459B91F3D500B00BAB115 /* JSInteraction.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -380,6 +383,7 @@
 				B91DEBC51F14B544002B3919 /* LoadingBackgroundView.swift in Sources */,
 				B97459AE1F39A7EE00BAB115 /* HouseSearchViewModel.swift in Sources */,
 				B91DEBC31F14B524002B3919 /* BaseView.swift in Sources */,
+				B97459BA1F3D500B00BAB115 /* JSInteraction.swift in Sources */,
 				B97459B01F3AE39500BAB115 /* ReleaseController.swift in Sources */,
 				B93A42901F32F72D009EBACE /* PullTableView.swift in Sources */,
 				B93A42981F3325BB009EBACE /* House.swift in Sources */,
