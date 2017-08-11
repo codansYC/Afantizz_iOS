@@ -24,6 +24,23 @@ class ServerUrl: NSObject {
     static let Login = "login/login"
     /**发布房源的的html文件*/
     static let ReleaseH5 = "m_release.html"
+    /**房源详情的的html文件*/
+    static func HouseDetailH5(houseId: String) -> String {
+        var urlStr = basicUrl + "m/m_detail.html?house_id=" + houseId
+        if let token = Global.token {
+            urlStr += "&token=\(token)"
+        }
+        return urlStr
+    }
+    /**举报房源的html文件*/
+    static func ComplainH5(houseId: String) -> String {
+        var urlStr = basicUrl + "m/m_complain.html?house_id=" + houseId
+        if let token = Global.token {
+            urlStr += "&token=\(token)"
+        }
+        return urlStr
+    }
+    
 }
 
 extension String {

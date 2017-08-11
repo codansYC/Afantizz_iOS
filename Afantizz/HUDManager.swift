@@ -25,6 +25,7 @@ class HUDManager {
         return show(message: BizConsts.networkPoorMsg, in: view)
     }
     
+    @discardableResult
     static func showLoading(message: String = "") -> CMBProgressHUD? {
         guard let view = UIViewController.getCurrentController()?.view else {
             return nil

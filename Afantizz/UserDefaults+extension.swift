@@ -15,7 +15,7 @@ extension UserDefaults {
     class func saveToken(_ token: String?) {
         UserDefaults.standard.set(token, forKey: tokenIdentifier)
         UserDefaults.standard.synchronize()
-        Global.token = token
+        Global.memoryToken = token
     }
     
     class func getToken() -> String? {

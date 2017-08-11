@@ -61,11 +61,11 @@ class HouseListController: PagingController<House> {
         tableView.estimatedRowHeight = 50
         
         tableView.rx.modelSelected(House.self).bind { [unowned self] (house) in
-            let urlStr = "http://www.afantizz.com/m/detail.html?house_id=" + house.house_id
-            let webVC = WebViewController(URLStr: urlStr)
-            webVC.title = "房源详情"
-            webVC.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(webVC, animated: true)
+            let urlStr = ServerUrl.HouseDetailH5(houseId: house.house_id)
+            let detailVC = HouseDetailController(URLStr: urlStr)
+            detailVC.houseId = house.house_id
+            detailVC.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(detailVC, animated: true)
         }.addDisposableTo(disposeBag)
     }
 }

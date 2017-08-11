@@ -44,17 +44,11 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             return true
         }
         
-        if Global.token != nil {
-            return true
-        }
-        
-        guard let token = UserDefaults.getToken() else {
+        if Global.token == nil {
             let naviVC = NavigationController(rootViewController: LoginController())
             UIViewController.getCurrentController()?.present(naviVC, animated: true, completion: nil)
             return false
         }
-        
-        Global.token = token
         
         return true
     }

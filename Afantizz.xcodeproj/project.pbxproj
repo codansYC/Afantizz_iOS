@@ -45,6 +45,8 @@
 		B97459B61F3AF09500BAB115 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97459B51F3AF09500BAB115 /* LoginViewModel.swift */; };
 		B97459B81F3C769C00BAB115 /* UserDefaults+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97459B71F3C769B00BAB115 /* UserDefaults+extension.swift */; };
 		B97459BA1F3D500B00BAB115 /* JSInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97459B91F3D500B00BAB115 /* JSInteraction.swift */; };
+		B97459BC1F3D862000BAB115 /* HouseDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97459BB1F3D862000BAB115 /* HouseDetailController.swift */; };
+		B97459BE1F3DB16200BAB115 /* ComplainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97459BD1F3DB16200BAB115 /* ComplainController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -89,6 +91,8 @@
 		B97459B51F3AF09500BAB115 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		B97459B71F3C769B00BAB115 /* UserDefaults+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+extension.swift"; sourceTree = "<group>"; };
 		B97459B91F3D500B00BAB115 /* JSInteraction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSInteraction.swift; sourceTree = "<group>"; };
+		B97459BB1F3D862000BAB115 /* HouseDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseDetailController.swift; sourceTree = "<group>"; };
+		B97459BD1F3DB16200BAB115 /* ComplainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplainController.swift; sourceTree = "<group>"; };
 		D94F947A97574C6978C16D6D /* Pods_Afantizz.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Afantizz.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -156,6 +160,8 @@
 				B93A42951F332566009EBACE /* HouseListController.swift */,
 				B97459AF1F3AE39500BAB115 /* ReleaseController.swift */,
 				B97459B31F3AE55A00BAB115 /* LoginController.swift */,
+				B97459BB1F3D862000BAB115 /* HouseDetailController.swift */,
+				B97459BD1F3DB16200BAB115 /* ComplainController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -359,6 +365,7 @@
 				B97459B81F3C769C00BAB115 /* UserDefaults+extension.swift in Sources */,
 				B97459B61F3AF09500BAB115 /* LoginViewModel.swift in Sources */,
 				B91DEB0D1F1322ED002B3919 /* ViewController.swift in Sources */,
+				B97459BC1F3D862000BAB115 /* HouseDetailController.swift in Sources */,
 				B91DEBC91F14B93C002B3919 /* TabBarController.swift in Sources */,
 				B97459B21F3AE4A500BAB115 /* User.swift in Sources */,
 				B91DEBCB1F14BA21002B3919 /* UIImage+extension.swift in Sources */,
@@ -369,6 +376,7 @@
 				B93A429A1F3327DC009EBACE /* HouseListCell.swift in Sources */,
 				B97459961F3482E800BAB115 /* ErrorBackgroundView.swift in Sources */,
 				B91DEB0B1F1322ED002B3919 /* AppDelegate.swift in Sources */,
+				B97459BE1F3DB16200BAB115 /* ComplainController.swift in Sources */,
 				B97459B41F3AE55A00BAB115 /* LoginController.swift in Sources */,
 				B938E4C31F171B75005F42BF /* TableController.swift in Sources */,
 				B91DEBB91F147028002B3919 /* Networker.swift in Sources */,

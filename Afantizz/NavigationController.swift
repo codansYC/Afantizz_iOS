@@ -17,6 +17,6 @@ class NavigationController: UINavigationController {
         navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 17), NSForegroundColorAttributeName: UIColor.white]
         UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffsetMake(0, -100), for: .default)
         navigationBar.tintColor = UIColor.white
-        navigationBar.isTranslucent = false
+        navigationBar.isTranslucent = true
     }
 }

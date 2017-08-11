@@ -10,9 +10,26 @@ import UIKit
 
 class Global {
 
+    static let appDelegate = UIApplication.shared.delegate as! AppDelegate
     static let ScreenWidth = UIScreen.main.bounds.width
-    static var token: String?
+    static var memoryToken: String?
     static var user: User?
+    
+    static var token: String? {
+        if let token = memoryToken {
+            return token
+        }
+        if let token = user?.token {
+            memoryToken = token
+            return token
+        }
+        
+        if let token = UserDefaults.getToken() {
+            memoryToken = token
+            return token
+        }
+        return nil
+    }
     
     class func validateMobile(_ mobile: String?) -> Bool {
         guard let mobile = mobile else {
