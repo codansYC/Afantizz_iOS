@@ -42,6 +42,24 @@ class ServerUrl: NSObject {
         }
         return urlStr
     }
+    /**我的发布的html文件*/
+    static func myReleaseH5() -> String {
+        let urlStr = basicUrl + "m/m_myRelease.html?token=" + (Global.token ?? "")
+        return urlStr
+    }
+    /**我的发布的html文件*/
+    static func myCollectionH5() -> String {
+        let urlStr = basicUrl + "m/m_myCollection.html?token=" + (Global.token ?? "")
+        return urlStr
+    }
+    /**我的发布的html文件*/
+    static func feedbackH5() -> String {
+        var urlStr = basicUrl + "m/m_feedback.html?"
+        if let token = Global.token {
+            urlStr += "&token=\(token)"
+        }
+        return urlStr
+    }
     
 }
 

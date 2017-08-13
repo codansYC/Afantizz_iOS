@@ -109,5 +109,22 @@ class MineController: TableController, UITableViewDelegate, UITableViewDataSourc
         }
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let section = indexPath.section
+        let row = indexPath.row
+        switch section {
+        case 0:
+            if row == 0 {
+                mineVM.toMyReleasePageIfLogin()
+            } else {
+                mineVM.toMyCollectionPageIfLogin()
+            }
+        case 1:
+            mineVM.toFeedbackPage()
+        default:
+            break
+        }
+    }
 
 }

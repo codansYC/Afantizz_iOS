@@ -11,7 +11,7 @@ import RxSwift
 
 class MineViewModel: BaseViewModel {
     weak var mineVC: UIViewController? {
-        return Global.appDelegate.tabBarVC?.childViewControllers[2]
+        return (Global.appDelegate.tabBarVC?.childViewControllers[2] as? NavigationController)?.topViewController
     }
     var loginState = Variable(Global.isLogin)
     
@@ -48,17 +48,30 @@ class MineViewModel: BaseViewModel {
 
     }
     
-    func toMyReleasePage() {
-        
-        let releaseVC = WebViewController(URLStr: <#T##String?#>)
+    func toMyReleasePageIfLogin() {
+        guard Global.isLogin else {
+            Global.toLoginPage()
+            return
+        }
+        let myReleaseVC = WebViewController(URLStr: ServerUrl.myReleaseH5())
+        myReleaseVC.title = "我的发布"
+        mineVC?.navigationController?.pushViewController(myReleaseVC, animated: true)
     }
     
-    func toMyCollectionPage() {
-        
+    func toMyCollectionPageIfLogin() {
+        guard Global.isLogin else {
+            Global.toLoginPage()
+            return
+        }
+        let myCollectionVC = WebViewController(URLStr: ServerUrl.myCollectionH5())
+        myCollectionVC.title = "我的收藏"
+        mineVC?.navigationController?.pushViewController(myCollectionVC, animated: true)
     }
     
     func toFeedbackPage() {
-        
+        let feedBackVC = WebViewController(URLStr: ServerUrl.feedbackH5())
+        feedBackVC.title = "意见反馈"
+        mineVC?.navigationController?.pushViewController(feedBackVC, animated: true)
     }
  
 }
