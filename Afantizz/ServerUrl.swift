@@ -22,6 +22,8 @@ class ServerUrl: NSObject {
     static let GetCaptcha = "login/captcha"
     /**登录*/
     static let Login = "login/login"
+    /**用户信息*/
+    static let userInfo = "user/info"
     /**发布房源的的html文件*/
     static let ReleaseH5 = "m_release.html"
     /**房源详情的的html文件*/

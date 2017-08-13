@@ -33,7 +33,7 @@ import MBProgressHUD
     func turnToHouseListPageAfterReleaseSuccess() {
         DispatchQueue.main.async {
             let tabBarVC = Global.appDelegate.tabBarVC
-            tabBarVC.selectedIndex = 0
+            tabBarVC?.selectedIndex = 0
         }
     }
     

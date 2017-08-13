@@ -7,15 +7,27 @@
 //
 
 import UIKit
+import RxSwift
 
 class BaseView: UIView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
+    lazy var disposeBag: DisposeBag = DisposeBag()
 
 }
+
+class SectionView: BaseView {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = UIColor.hxedeff3
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    init(height: CGFloat) {
+        super.init(frame: CGRect(x: 0, y: 0, width: 0, height: height))
+        backgroundColor = UIColor.hxedeff3
+    }
+}
+

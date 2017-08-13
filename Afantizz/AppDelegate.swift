@@ -13,7 +13,7 @@ import IQKeyboardManagerSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let tabBarVC = TabBarController()
+    var tabBarVC: TabBarController?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     
@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.sharedManager().enableAutoToolbar = false
 
         window = UIWindow(frame: UIScreen.main.bounds)
+        tabBarVC = TabBarController()
         window?.rootViewController = tabBarVC
         window?.makeKeyAndVisible()
         

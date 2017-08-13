@@ -15,6 +15,10 @@ class Global {
     static var memoryToken: String?
     static var user: User?
     
+    static var isLogin: Bool {
+        return token != nil
+    }
+    
     static var token: String? {
         if let token = memoryToken {
             return token
@@ -49,6 +53,17 @@ class Global {
         let test = NSPredicate(format: "SELF MATCHES %@", regex)
         let result = test.evaluate(with: number)
         return result
+    }
+    
+    class func toLoginPage() {
+        let naviVC = NavigationController(rootViewController: LoginController())
+        UIViewController.getCurrentController()?.present(naviVC, animated: true, completion: nil)
+    }
+    
+    class func clearUserInfo() {
+        Global.user = nil
+        Global.memoryToken = nil
+        UserDefaults.removeToken()
     }
 
 }

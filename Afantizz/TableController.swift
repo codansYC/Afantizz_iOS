@@ -19,6 +19,7 @@ class TableController: BaseController {
     
     func setUpTableView() {
         tableView = UITableView(frame: CGRect.zero, style: .plain)
+        tableView.separatorStyle = .none
         view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
             make.edges.equalTo(view)

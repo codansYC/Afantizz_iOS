@@ -25,9 +25,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         
         addChild(HouseListController(), title: "房源", image: UIImage(named: "home"))
         addChild(ReleaseController(), title: "发布", image: UIImage(named: "edit"))
-        let mineWebVC = WebViewController(URLStr: "http://afantizz.com/m/mine.html")
-        addChild(mineWebVC, title: "我的", image: UIImage(named: "mine"))
-        
+        addChild(MineController(), title: "我的", image: UIImage(named: "mine"))
     }
     
     func addChild(_ viewController: UIViewController, title: String, image: UIImage?) -> Void {
@@ -44,9 +42,8 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             return true
         }
         
-        if Global.token == nil {
-            let naviVC = NavigationController(rootViewController: LoginController())
-            UIViewController.getCurrentController()?.present(naviVC, animated: true, completion: nil)
+        if !Global.isLogin {
+            Global.toLoginPage()
             return false
         }
         

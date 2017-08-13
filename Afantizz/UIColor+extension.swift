@@ -62,4 +62,19 @@ extension UIColor {
         return UIColor.colorWithHex(hex: 0x4e4e4e)
     }
     
+    class var safeBgColor: UIColor {
+        return UIColor.colorWithHex(hex: 0x5cb85c)
+    }
+    
+    class var safeBorderColor: UIColor {
+        return UIColor.colorWithHex(hex: 0x4cae4c)
+    }
+    
+    class var dangerBgColor: UIColor {
+        return UIColor.colorWithHex(hex: 0xd9534f)
+    }
+    
+    class var dangerBorderColor: UIColor {
+        return UIColor.colorWithHex(hex: 0xd43f3a)
+    }
 }
