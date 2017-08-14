@@ -61,11 +61,7 @@ class HouseListController: PagingController<House> {
         tableView.estimatedRowHeight = 50
         
         tableView.rx.modelSelected(House.self).bind { [unowned self] (house) in
-            let urlStr = ServerUrl.HouseDetailH5(houseId: house.house_id)
-            let detailVC = HouseDetailController(URLStr: urlStr)
-            detailVC.houseId = house.house_id
-            detailVC.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(detailVC, animated: true)
+            self.toDetailVC(house.house_id)
         }.addDisposableTo(disposeBag)
     }
 }

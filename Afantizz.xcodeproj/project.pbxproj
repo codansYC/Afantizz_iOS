@@ -22,6 +22,10 @@
 		B91DEBC71F14B902002B3919 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91DEBC61F14B902002B3919 /* NavigationController.swift */; };
 		B91DEBC91F14B93C002B3919 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91DEBC81F14B93C002B3919 /* TabBarController.swift */; };
 		B91DEBCB1F14BA21002B3919 /* UIImage+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91DEBCA1F14BA21002B3919 /* UIImage+extension.swift */; };
+		B92429ED1F413FCA00706084 /* MyReleaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92429EC1F413FCA00706084 /* MyReleaseController.swift */; };
+		B92429EF1F413FDD00706084 /* MyCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92429EE1F413FDD00706084 /* MyCollectionController.swift */; };
+		B92429F11F413FEE00706084 /* FeedbackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92429F01F413FEE00706084 /* FeedbackController.swift */; };
+		B92429F31F41434300706084 /* Str.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92429F21F41434300706084 /* Str.swift */; };
 		B938E4C31F171B75005F42BF /* TableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B938E4C21F171B75005F42BF /* TableController.swift */; };
 		B938E4C51F171B88005F42BF /* ListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B938E4C41F171B88005F42BF /* ListController.swift */; };
 		B938E4C71F172663005F42BF /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B938E4C61F172663005F42BF /* BaseViewModel.swift */; };
@@ -74,6 +78,10 @@
 		B91DEBC61F14B902002B3919 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		B91DEBC81F14B93C002B3919 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		B91DEBCA1F14BA21002B3919 /* UIImage+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+extension.swift"; sourceTree = "<group>"; };
+		B92429EC1F413FCA00706084 /* MyReleaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyReleaseController.swift; sourceTree = "<group>"; };
+		B92429EE1F413FDD00706084 /* MyCollectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCollectionController.swift; sourceTree = "<group>"; };
+		B92429F01F413FEE00706084 /* FeedbackController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackController.swift; sourceTree = "<group>"; };
+		B92429F21F41434300706084 /* Str.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Str.swift; sourceTree = "<group>"; };
 		B938E4C21F171B75005F42BF /* TableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableController.swift; sourceTree = "<group>"; };
 		B938E4C41F171B88005F42BF /* ListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListController.swift; sourceTree = "<group>"; };
 		B938E4C61F172663005F42BF /* BaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
@@ -176,6 +184,9 @@
 				B97459BB1F3D862000BAB115 /* HouseDetailController.swift */,
 				B97459BD1F3DB16200BAB115 /* ComplainController.swift */,
 				B97459BF1F3F44C000BAB115 /* MineController.swift */,
+				B92429EC1F413FCA00706084 /* MyReleaseController.swift */,
+				B92429EE1F413FDD00706084 /* MyCollectionController.swift */,
+				B92429F01F413FEE00706084 /* FeedbackController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -243,6 +254,7 @@
 				B97459971F38165200BAB115 /* BizConsts.swift */,
 				B97459A91F39A2BD00BAB115 /* Global.swift */,
 				B97459B91F3D500B00BAB115 /* JSInteraction.swift */,
+				B92429F21F41434300706084 /* Str.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -401,6 +413,7 @@
 				B91DEBCB1F14BA21002B3919 /* UIImage+extension.swift in Sources */,
 				B91DEBC11F14B4EA002B3919 /* BaseController.swift in Sources */,
 				B91DEBBD1F14B13F002B3919 /* UIViewController+extension.swift in Sources */,
+				B92429EF1F413FDD00706084 /* MyCollectionController.swift in Sources */,
 				B91DEBBB1F14748D002B3919 /* ServerUrl.swift in Sources */,
 				B97459C21F3F48FD00BAB115 /* MineTopView.swift in Sources */,
 				B97459981F38165200BAB115 /* BizConsts.swift in Sources */,
@@ -411,6 +424,7 @@
 				B97459B41F3AE55A00BAB115 /* LoginController.swift in Sources */,
 				B938E4C31F171B75005F42BF /* TableController.swift in Sources */,
 				B91DEBB91F147028002B3919 /* Networker.swift in Sources */,
+				B92429F11F413FEE00706084 /* FeedbackController.swift in Sources */,
 				B97459CB1F40488C00BAB115 /* MineBottomView.swift in Sources */,
 				B93A42961F332566009EBACE /* HouseListController.swift in Sources */,
 				B97459AC1F39A35800BAB115 /* HouseSearchController.swift in Sources */,
@@ -421,6 +435,7 @@
 				B93A42921F32FC3B009EBACE /* PagingViewModel.swift in Sources */,
 				B938E4C71F172663005F42BF /* BaseViewModel.swift in Sources */,
 				B91DEBC51F14B544002B3919 /* LoadingBackgroundView.swift in Sources */,
+				B92429F31F41434300706084 /* Str.swift in Sources */,
 				B97459AE1F39A7EE00BAB115 /* HouseSearchViewModel.swift in Sources */,
 				B91DEBC31F14B524002B3919 /* BaseView.swift in Sources */,
 				B97459BA1F3D500B00BAB115 /* JSInteraction.swift in Sources */,
@@ -429,6 +444,7 @@
 				B93A42981F3325BB009EBACE /* House.swift in Sources */,
 				B938E4C51F171B88005F42BF /* ListController.swift in Sources */,
 				B97459AA1F39A2BD00BAB115 /* Global.swift in Sources */,
+				B92429ED1F413FCA00706084 /* MyReleaseController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

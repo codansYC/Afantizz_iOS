@@ -53,8 +53,7 @@ class MineViewModel: BaseViewModel {
             Global.toLoginPage()
             return
         }
-        let myReleaseVC = WebViewController(URLStr: ServerUrl.myReleaseH5())
-        myReleaseVC.title = "我的发布"
+        let myReleaseVC = MyReleaseController(URLStr: ServerUrl.myReleaseH5())
         mineVC?.navigationController?.pushViewController(myReleaseVC, animated: true)
     }
     
@@ -63,14 +62,12 @@ class MineViewModel: BaseViewModel {
             Global.toLoginPage()
             return
         }
-        let myCollectionVC = WebViewController(URLStr: ServerUrl.myCollectionH5())
-        myCollectionVC.title = "我的收藏"
+        let myCollectionVC = MyCollectionController(URLStr: ServerUrl.myCollectionH5())
         mineVC?.navigationController?.pushViewController(myCollectionVC, animated: true)
     }
     
     func toFeedbackPage() {
-        let feedBackVC = WebViewController(URLStr: ServerUrl.feedbackH5())
-        feedBackVC.title = "意见反馈"
+        let feedBackVC = FeedbackController(URLStr: ServerUrl.feedbackH5())
         mineVC?.navigationController?.pushViewController(feedBackVC, animated: true)
     }
  

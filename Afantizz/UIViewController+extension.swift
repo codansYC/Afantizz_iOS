@@ -91,3 +91,14 @@ extension UIViewController {
     }
 
 }
+
+// MARK: - 业务
+extension UIViewController {
+    func toDetailVC(_ houseId: String) {
+        let urlStr = ServerUrl.HouseDetailH5(houseId: houseId)
+        let detailVC = HouseDetailController(URLStr: urlStr)
+        detailVC.houseId = houseId
+        detailVC.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(detailVC, animated: true)
+    }
+}
