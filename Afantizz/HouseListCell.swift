@@ -19,6 +19,7 @@ class HouseListCell: UITableViewCell {
     let rentModeLabel = UILabel()
     let gprsIcon = UIImage(named: "icon-gprs")
     let gprsSign = UIView()
+    let bottomV = UIView()
     
     var house: House? {
         didSet{
@@ -35,6 +36,12 @@ class HouseListCell: UITableViewCell {
             dateLabel.text = house.date
             trafficLabel.text = house.traffic
             rentModeLabel.text = house.rent_mode
+            
+            bottomV.snp.updateConstraints { (make) in
+                make.height.equalTo(house.traffic.isEmpty ? 10 : 30)
+            }
+            bottomV.isHidden = house.traffic.isEmpty
+
         }
         
     }
@@ -59,9 +66,10 @@ class HouseListCell: UITableViewCell {
         addSubview(addressLabel)
         addSubview(priceLabel)
         addSubview(dateLabel)
-        addSubview(gprsSign)
-        addSubview(trafficLabel)
         addSubview(rentModeLabel)
+        addSubview(bottomV)
+        bottomV.addSubview(gprsSign)
+        bottomV.addSubview(trafficLabel)
         
         imageV.snp.makeConstraints { (make) in
             make.top.equalTo(10)
@@ -92,15 +100,20 @@ class HouseListCell: UITableViewCell {
             make.bottom.equalTo(priceLabel)
             make.right.equalTo(titleLabel)
         }
-        gprsSign.snp.makeConstraints { (make) in
+        bottomV.snp.makeConstraints { (make) in
+            make.top.equalTo(imageV.snp.bottom)
             make.left.equalTo(imageV)
-            make.top.equalTo(imageV.snp.bottom).offset(10)
+            make.right.equalTo(titleLabel)
+            make.bottom.equalTo(self)
+            make.height.equalTo(30)
+        }
+        gprsSign.snp.makeConstraints { (make) in
+            make.centerY.left.equalTo(bottomV)
             make.size.equalTo(gprsIcon!.size)
         }
         trafficLabel.snp.makeConstraints { (make) in
             make.left.equalTo(gprsSign.snp.right).offset(5)
-            make.right.equalTo(titleLabel)
-            make.centerY.equalTo(gprsSign)
+            make.centerY.right.equalTo(bottomV)
         }
         let line = UIView()
         addSubview(line)
