@@ -46,17 +46,7 @@ class ViewController: PagingController<House>, UITableViewDelegate,UITableViewDa
     }
 }
 
-class HouseListViewModel: PagingViewModel<House> {
-    init() {
-        let params = ["district"  :"",
-                      "subway"    :"",
-                      "price"     :"",
-                      "style"     :"",
-                      "rent_mode" :"",
-                      "sort"      :""]
-        super.init(pullUrl: ServerUrl.houseList, params: params)
-    }
-}
+
 
 
 

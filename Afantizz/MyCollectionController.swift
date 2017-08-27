@@ -7,7 +7,26 @@
 //
 
 import UIKit
+import JavaScriptCore
 
-class MyCollectionController: WebViewController {
+class MyCollectionController: WebViewController, MyCollectionJsDelegate {
 
+    var jsContext: JSContext?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        jsContext = webView.value(forKeyPath: Str.jsContextKeyPath) as? JSContext
+        jsContext?.setObject(self, forKeyedSubscript: "JSInteraction" as (NSCopying & NSObjectProtocol))
+
+    }
+    
+    // MARK: - MyReleaseJsDelegate
+    func toDetailPage(_ houseId: String) {
+        self.toDetailVC(houseId)
+    }
+}
+
+@objc protocol MyCollectionJsDelegate: JSExport {
+    func toDetailPage(_ houseId: String)
 }

@@ -39,7 +39,7 @@ class BaseController: UIViewController {
             } else {
                 loadingView.removeFromSuperview()
                 view.addSubview(loadingView)
-                loadingView.layer.zPosition = 1
+                loadingView.layer.zPosition = UIViewLevel.Loading
                 loadingView.snp.makeConstraints({ (make) in
                     make.edges.equalTo(view)
                 })
@@ -47,6 +47,10 @@ class BaseController: UIViewController {
         } else {
             loadingView.removeFromSuperview()
         }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
 }

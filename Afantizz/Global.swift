@@ -12,6 +12,7 @@ class Global {
 
     static let appDelegate = UIApplication.shared.delegate as! AppDelegate
     static let ScreenWidth = UIScreen.main.bounds.width
+    static let ScreenHeight = UIScreen.main.bounds.height
     static var memoryToken: String?
     static var user: User?
     
@@ -67,5 +68,6 @@ class Global {
     }
 
 }
+
 
 

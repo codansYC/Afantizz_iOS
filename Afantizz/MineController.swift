@@ -126,5 +126,9 @@ class MineController: TableController, UITableViewDelegate, UITableViewDataSourc
             break
         }
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        topView.adjustBgImgV(offset_y: scrollView.contentOffset.y)
+    }
 
 }

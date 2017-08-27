@@ -20,6 +20,7 @@ class TableController: BaseController {
     func setUpTableView() {
         tableView = UITableView(frame: CGRect.zero, style: .plain)
         tableView.separatorStyle = .none
+        automaticallyAdjustsScrollViewInsets = false
         view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
             make.edges.equalTo(view)

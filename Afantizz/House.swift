@@ -18,6 +18,7 @@ class House: HandyJSON {
     var traffic = ""
     var price = ""
     var date = ""
+    var rent_mode = ""
     var facilities: [String]?
     var images = [String]()
     

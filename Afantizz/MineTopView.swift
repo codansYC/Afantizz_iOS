@@ -12,8 +12,11 @@ import RxSwift
 class MineTopView: BaseView {
 
     var bgImgV: UIImageView!
+    var infoBg: UIView!
     var headImgV: UIImageView!
     var textLabel: UILabel!
+    let bgImgVH: CGFloat = 240
+    let infoBgH: CGFloat = 86
     
     var loginState = Variable(false)
     
@@ -24,7 +27,7 @@ class MineTopView: BaseView {
         bgImgV.contentMode = .center
         addSubview(bgImgV)
         
-        let infoBg = UIView()
+        infoBg = UIView()
         addSubview(infoBg)
         infoBg.backgroundColor = UIColor.white
         
@@ -37,13 +40,14 @@ class MineTopView: BaseView {
         infoBg.addSubview(textLabel)
         
         bgImgV.snp.makeConstraints { (make) in
-            make.top.left.right.equalTo(self)
-            make.height.equalTo(240)
+            make.left.right.equalTo(self)
+            make.height.equalTo(bgImgVH)
+            make.bottom.equalTo(infoBg.snp.top)
         }
         
         infoBg.snp.makeConstraints { (make) in
             make.bottom.right.left.equalTo(self)
-            make.top.equalTo(bgImgV.snp.bottom)
+            make.height.equalTo(infoBgH)
         }
         
         headImgV.snp.makeConstraints { (make) in
@@ -56,8 +60,8 @@ class MineTopView: BaseView {
             make.top.equalTo(headImgV.snp.bottom).offset(15)
         }
 
-        self.frame.size.height = 240 + ceil(headIcon!.size.height/2) + 30 + textLabel.font.lineHeight
-
+        self.frame.size.height = bgImgVH + infoBgH
+        
         loginState.asObservable().bind { [unowned self] (isLogin) in
             self.textLabel.text = isLogin ? Global.user?.phone : "未登录"
         }.addDisposableTo(disposeBag)
@@ -66,6 +70,28 @@ class MineTopView: BaseView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func adjustBgImgV(offset_y: CGFloat) {
+        if offset_y > 0 { return }
+        let img = bgImgV.image!
+        let img_p: CGFloat = img.size.width / img.size.height
+        let height = bgImgVH - offset_y
+        var width = self.frame.size.width
+        if height > img.size.height {
+            bgImgV.contentMode = .scaleAspectFit
+            width = height * img_p
+        } else {
+            bgImgV.contentMode = .center
+        }
+        bgImgV.snp.remakeConstraints { (make) in
+            make.centerX.equalTo(self)
+            make.width.equalTo(width)
+            make.height.equalTo(height)
+            make.bottom.equalTo(infoBg.snp.top)
+        }
+        bgImgV.backgroundColor = UIColor.red
+        
     }
 
 }

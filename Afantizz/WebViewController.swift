@@ -43,7 +43,11 @@ class WebViewController: BaseController, NJKWebViewProgressDelegate, UIWebViewDe
         super.viewDidLoad()
         configureWebView()
         loadWebPage()
-        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        webView.frame = view.bounds
     }
     
     override func viewWillDisappear(_ animated: Bool) {

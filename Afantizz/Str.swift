@@ -11,4 +11,5 @@ import UIKit
 class Str: NSObject {
     
     static let jsContextKeyPath = "documentView.webView.mainFrame.javaScriptContext"
+    static let unlimited = "不限"
 }

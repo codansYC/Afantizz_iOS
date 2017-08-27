@@ -16,6 +16,9 @@ class HouseListCell: UITableViewCell {
     let priceLabel = UILabel()
     let dateLabel = UILabel()
     let trafficLabel = UILabel()
+    let rentModeLabel = UILabel()
+    let gprsIcon = UIImage(named: "icon-gprs")
+    let gprsSign = UIView()
     
     var house: House? {
         didSet{
@@ -31,18 +34,34 @@ class HouseListCell: UITableViewCell {
             priceLabel.text = "¥" + house.price
             dateLabel.text = house.date
             trafficLabel.text = house.traffic
+            rentModeLabel.text = house.rent_mode
         }
         
     }
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 14)
+        addressLabel.font = UIFont.systemFont(ofSize: 13)
+        priceLabel.font = UIFont.systemFont(ofSize: 14)
+        priceLabel.textColor = UIColor.priceColor
+        trafficLabel.font = UIFont.systemFont(ofSize: 12)
+        trafficLabel.textColor = UIColor.hx888b9a
+        rentModeLabel.font = UIFont.systemFont(ofSize: 13)
+        rentModeLabel.textColor = UIColor.hx337ab7
+        rentModeLabel.backgroundColor = UIColor.hx337ab7.withAlphaComponent(0.2)
+        gprsSign.backgroundColor = UIColor.hx888b9a
+        gprsSign.mask = UIImageView(image: gprsIcon)
+        
         addSubview(imageV)
         addSubview(titleLabel)
         addSubview(addressLabel)
         addSubview(priceLabel)
         addSubview(dateLabel)
+        addSubview(gprsSign)
         addSubview(trafficLabel)
+        addSubview(rentModeLabel)
         
         imageV.snp.makeConstraints { (make) in
             make.top.equalTo(10)
@@ -56,9 +75,15 @@ class HouseListCell: UITableViewCell {
         }
         addressLabel.snp.makeConstraints { (make) in
             make.left.equalTo(titleLabel)
-            make.right.equalTo(titleLabel)
             make.top.equalTo(titleLabel.snp.bottom).offset(8)
+            make.right.equalTo(rentModeLabel.snp.left).offset(-10)
         }
+        rentModeLabel.snp.makeConstraints { (make) in
+            make.right.equalTo(titleLabel)
+            make.centerY.equalTo(addressLabel)
+        }
+        addressLabel.setContentCompressionResistancePriority(100, for: .horizontal)
+        rentModeLabel.setContentHuggingPriority(900, for: .horizontal)
         priceLabel.snp.makeConstraints { (make) in
             make.left.equalTo(titleLabel)
             make.bottom.equalTo(imageV)
@@ -67,18 +92,24 @@ class HouseListCell: UITableViewCell {
             make.bottom.equalTo(priceLabel)
             make.right.equalTo(titleLabel)
         }
-        trafficLabel.snp.makeConstraints { (make) in
+        gprsSign.snp.makeConstraints { (make) in
             make.left.equalTo(imageV)
-            make.right.equalTo(titleLabel)
             make.top.equalTo(imageV.snp.bottom).offset(10)
+            make.size.equalTo(gprsIcon!.size)
+        }
+        trafficLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(gprsSign.snp.right).offset(5)
+            make.right.equalTo(titleLabel)
+            make.centerY.equalTo(gprsSign)
         }
         let line = UIView()
         addSubview(line)
+        line.backgroundColor = UIColor.colorWithHex(hex: 0xedeff3)
         line.snp.makeConstraints { (make) in
-            make.left.right.equalTo(trafficLabel)
+            make.left.equalTo(imageV)
             make.top.equalTo(trafficLabel.snp.bottom).offset(10)
-            make.height.equalTo(0.5)
-            make.bottom.equalTo(self)
+            make.height.equalTo(1)
+            make.right.bottom.equalTo(self)
         }
     }
     

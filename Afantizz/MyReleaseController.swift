@@ -25,9 +25,10 @@ class MyReleaseController: WebViewController, MyReleaseJsDelegate {
     func toDetailPage(_ houseId: String) {
         self.toDetailVC(houseId)
     }
+    
 
 }
 
-@objc protocol MyReleaseJsDelegate {
+@objc protocol MyReleaseJsDelegate: JSExport {
     func toDetailPage(_ houseId: String)
 }

@@ -40,4 +40,5 @@ class ReleaseController: WebViewController {
         self.jsContext = context
         self.jsContext?.setObject(m_model, forKeyedSubscript: "JSInteraction" as (NSCopying & NSObjectProtocol))
     }
+    
 }

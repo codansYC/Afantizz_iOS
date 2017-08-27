@@ -15,8 +15,14 @@ class PagingViewModel<T:HandyJSON>: BaseViewModel {
     
     var currentPage = 1
     var pullUrl = ""
+    /** 除分页外的所有参数 */
     var params = [String : Any]()
     var listSource = Variable([T?]())
+    
+    init(pullUrl: String) {
+        super.init()
+        self.pullUrl = pullUrl
+    }
     
     init(pullUrl: String, params: [String : Any]) {
         super.init()
@@ -35,6 +41,7 @@ class PagingViewModel<T:HandyJSON>: BaseViewModel {
     }
     
     func requestData() {
+        willSendRequest()
         params["page"] = self.currentPage
         Networker.request(url: pullUrl, params: params, success: { [weak self] (jsonStr) in
             let newData = [T].deserialize(from: jsonStr)
@@ -48,6 +55,7 @@ class PagingViewModel<T:HandyJSON>: BaseViewModel {
                 this.loadDataStatus.value = .error(errCode: BizConsts.networkPoorCode, errMsg: BizConsts.networkPoorMsg)
                 this.currentPage = max(this.currentPage-1, 1)
             })
+        didSendRequest()
     }
     
     func handleNewData(data:[T?]?) {
@@ -66,6 +74,14 @@ class PagingViewModel<T:HandyJSON>: BaseViewModel {
         }
         
         listSource.value += (data ?? [T?]())
+    }
+    
+    func willSendRequest() {
+        
+    }
+    
+    func didSendRequest() {
+        
     }
    
 

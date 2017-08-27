@@ -26,6 +26,19 @@
 		B92429EF1F413FDD00706084 /* MyCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92429EE1F413FDD00706084 /* MyCollectionController.swift */; };
 		B92429F11F413FEE00706084 /* FeedbackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92429F01F413FEE00706084 /* FeedbackController.swift */; };
 		B92429F31F41434300706084 /* Str.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92429F21F41434300706084 /* Str.swift */; };
+		B92429F51F41859100706084 /* BaseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92429F41F41859100706084 /* BaseCollectionView.swift */; };
+		B92429F71F4185C900706084 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92429F61F4185C900706084 /* FilterView.swift */; };
+		B92429F91F418D5500706084 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92429F81F418D5500706084 /* FilterCell.swift */; };
+		B92429FB1F41955000706084 /* DistrictOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92429FA1F41955000706084 /* DistrictOptionView.swift */; };
+		B92429FD1F41956800706084 /* PriceOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92429FC1F41956800706084 /* PriceOptionView.swift */; };
+		B92429FF1F41957F00706084 /* StyleOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92429FE1F41957F00706084 /* StyleOptionView.swift */; };
+		B9242A011F41959200706084 /* SubwayOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9242A001F41959200706084 /* SubwayOptionView.swift */; };
+		B9242A031F4195D100706084 /* HouseOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9242A021F4195D100706084 /* HouseOptionView.swift */; };
+		B9242A051F4199D100706084 /* DistrictOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9242A041F4199D100706084 /* DistrictOptionCell.swift */; };
+		B9242A071F41A2F900706084 /* PriceAndSubwayOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9242A061F41A2F800706084 /* PriceAndSubwayOptionCell.swift */; };
+		B9242A091F41A38C00706084 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9242A081F41A38C00706084 /* BaseTableViewCell.swift */; };
+		B9242A0B1F41A40100706084 /* BaseTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9242A0A1F41A40100706084 /* BaseTableView.swift */; };
+		B9242A0D1F41AA3C00706084 /* FirstStyleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9242A0C1F41AA3C00706084 /* FirstStyleCell.swift */; };
 		B938E4C31F171B75005F42BF /* TableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B938E4C21F171B75005F42BF /* TableController.swift */; };
 		B938E4C51F171B88005F42BF /* ListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B938E4C41F171B88005F42BF /* ListController.swift */; };
 		B938E4C71F172663005F42BF /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B938E4C61F172663005F42BF /* BaseViewModel.swift */; };
@@ -57,6 +70,10 @@
 		B97459C71F40337F00BAB115 /* head-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B97459C61F40337F00BAB115 /* head-icon.png */; };
 		B97459C91F4045AD00BAB115 /* MineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97459C81F4045AD00BAB115 /* MineViewModel.swift */; };
 		B97459CB1F40488C00BAB115 /* MineBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97459CA1F40488C00BAB115 /* MineBottomView.swift */; };
+		B9FBFE311F4291430092AE75 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FBFE301F4291430092AE75 /* Notifications.swift */; };
+		B9FBFE331F42A5890092AE75 /* SecondStyleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FBFE321F42A5890092AE75 /* SecondStyleCell.swift */; };
+		B9FBFE351F42D4F90092AE75 /* HouseListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FBFE341F42D4F90092AE75 /* HouseListViewModel.swift */; };
+		B9FBFE371F43F3330092AE75 /* Defines.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FBFE361F43F3330092AE75 /* Defines.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +99,19 @@
 		B92429EE1F413FDD00706084 /* MyCollectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCollectionController.swift; sourceTree = "<group>"; };
 		B92429F01F413FEE00706084 /* FeedbackController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackController.swift; sourceTree = "<group>"; };
 		B92429F21F41434300706084 /* Str.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Str.swift; sourceTree = "<group>"; };
+		B92429F41F41859100706084 /* BaseCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionView.swift; sourceTree = "<group>"; };
+		B92429F61F4185C900706084 /* FilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
+		B92429F81F418D5500706084 /* FilterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
+		B92429FA1F41955000706084 /* DistrictOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistrictOptionView.swift; sourceTree = "<group>"; };
+		B92429FC1F41956800706084 /* PriceOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceOptionView.swift; sourceTree = "<group>"; };
+		B92429FE1F41957F00706084 /* StyleOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleOptionView.swift; sourceTree = "<group>"; };
+		B9242A001F41959200706084 /* SubwayOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubwayOptionView.swift; sourceTree = "<group>"; };
+		B9242A021F4195D100706084 /* HouseOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseOptionView.swift; sourceTree = "<group>"; };
+		B9242A041F4199D100706084 /* DistrictOptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistrictOptionCell.swift; sourceTree = "<group>"; };
+		B9242A061F41A2F800706084 /* PriceAndSubwayOptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceAndSubwayOptionCell.swift; sourceTree = "<group>"; };
+		B9242A081F41A38C00706084 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		B9242A0A1F41A40100706084 /* BaseTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableView.swift; sourceTree = "<group>"; };
+		B9242A0C1F41AA3C00706084 /* FirstStyleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstStyleCell.swift; sourceTree = "<group>"; };
 		B938E4C21F171B75005F42BF /* TableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableController.swift; sourceTree = "<group>"; };
 		B938E4C41F171B88005F42BF /* ListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListController.swift; sourceTree = "<group>"; };
 		B938E4C61F172663005F42BF /* BaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
@@ -113,6 +143,10 @@
 		B97459C61F40337F00BAB115 /* head-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "head-icon.png"; sourceTree = "<group>"; };
 		B97459C81F4045AD00BAB115 /* MineViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineViewModel.swift; sourceTree = "<group>"; };
 		B97459CA1F40488C00BAB115 /* MineBottomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineBottomView.swift; sourceTree = "<group>"; };
+		B9FBFE301F4291430092AE75 /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		B9FBFE321F42A5890092AE75 /* SecondStyleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondStyleCell.swift; sourceTree = "<group>"; };
+		B9FBFE341F42D4F90092AE75 /* HouseListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseListViewModel.swift; sourceTree = "<group>"; };
+		B9FBFE361F43F3330092AE75 /* Defines.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Defines.swift; sourceTree = "<group>"; };
 		D94F947A97574C6978C16D6D /* Pods_Afantizz.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Afantizz.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -197,6 +231,17 @@
 				B93A42991F3327DC009EBACE /* HouseListCell.swift */,
 				B97459C11F3F48FD00BAB115 /* MineTopView.swift */,
 				B97459CA1F40488C00BAB115 /* MineBottomView.swift */,
+				B92429F61F4185C900706084 /* FilterView.swift */,
+				B92429F81F418D5500706084 /* FilterCell.swift */,
+				B9242A021F4195D100706084 /* HouseOptionView.swift */,
+				B92429FA1F41955000706084 /* DistrictOptionView.swift */,
+				B92429FC1F41956800706084 /* PriceOptionView.swift */,
+				B92429FE1F41957F00706084 /* StyleOptionView.swift */,
+				B9242A001F41959200706084 /* SubwayOptionView.swift */,
+				B9242A041F4199D100706084 /* DistrictOptionCell.swift */,
+				B9242A061F41A2F800706084 /* PriceAndSubwayOptionCell.swift */,
+				B9242A0C1F41AA3C00706084 /* FirstStyleCell.swift */,
+				B9FBFE321F42A5890092AE75 /* SecondStyleCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -216,6 +261,7 @@
 				B97459AD1F39A7EE00BAB115 /* HouseSearchViewModel.swift */,
 				B97459B51F3AF09500BAB115 /* LoginViewModel.swift */,
 				B97459C81F4045AD00BAB115 /* MineViewModel.swift */,
+				B9FBFE341F42D4F90092AE75 /* HouseListViewModel.swift */,
 			);
 			name = ViewModels;
 			sourceTree = "<group>";
@@ -234,6 +280,7 @@
 		B91DEB221F1331CA002B3919 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				B92429F41F41859100706084 /* BaseCollectionView.swift */,
 				B97459A71F39A27100BAB115 /* CustomSearchView.swift */,
 				B91DEBB81F147028002B3919 /* Networker.swift */,
 				B91DEBBA1F14748D002B3919 /* ServerUrl.swift */,
@@ -247,6 +294,8 @@
 				B93A42911F32FC3B009EBACE /* PagingViewModel.swift */,
 				B93A42931F3303BA009EBACE /* PagingController.swift */,
 				B938E4C61F172663005F42BF /* BaseViewModel.swift */,
+				B9242A0A1F41A40100706084 /* BaseTableView.swift */,
+				B9242A081F41A38C00706084 /* BaseTableViewCell.swift */,
 				B93A428F1F32F72D009EBACE /* PullTableView.swift */,
 				B97459911F34503600BAB115 /* WebViewController.swift */,
 				B97459931F3471FD00BAB115 /* HUDManager.swift */,
@@ -255,6 +304,8 @@
 				B97459A91F39A2BD00BAB115 /* Global.swift */,
 				B97459B91F3D500B00BAB115 /* JSInteraction.swift */,
 				B92429F21F41434300706084 /* Str.swift */,
+				B9FBFE301F4291430092AE75 /* Notifications.swift */,
+				B9FBFE361F43F3330092AE75 /* Defines.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -311,6 +362,7 @@
 				TargetAttributes = {
 					B91DEB061F1322ED002B3919 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 86U6748KYN;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -401,6 +453,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B91DEB241F133270002B3919 /* UIColor+extension.swift in Sources */,
+				B92429F91F418D5500706084 /* FilterCell.swift in Sources */,
 				B97459921F34503600BAB115 /* WebViewController.swift in Sources */,
 				B97459B81F3C769C00BAB115 /* UserDefaults+extension.swift in Sources */,
 				B97459C91F4045AD00BAB115 /* MineViewModel.swift in Sources */,
@@ -409,9 +462,13 @@
 				B97459BC1F3D862000BAB115 /* HouseDetailController.swift in Sources */,
 				B97459C01F3F44C000BAB115 /* MineController.swift in Sources */,
 				B91DEBC91F14B93C002B3919 /* TabBarController.swift in Sources */,
+				B92429FB1F41955000706084 /* DistrictOptionView.swift in Sources */,
+				B9242A031F4195D100706084 /* HouseOptionView.swift in Sources */,
 				B97459B21F3AE4A500BAB115 /* User.swift in Sources */,
+				B9242A011F41959200706084 /* SubwayOptionView.swift in Sources */,
 				B91DEBCB1F14BA21002B3919 /* UIImage+extension.swift in Sources */,
 				B91DEBC11F14B4EA002B3919 /* BaseController.swift in Sources */,
+				B92429F71F4185C900706084 /* FilterView.swift in Sources */,
 				B91DEBBD1F14B13F002B3919 /* UIViewController+extension.swift in Sources */,
 				B92429EF1F413FDD00706084 /* MyCollectionController.swift in Sources */,
 				B91DEBBB1F14748D002B3919 /* ServerUrl.swift in Sources */,
@@ -427,24 +484,36 @@
 				B92429F11F413FEE00706084 /* FeedbackController.swift in Sources */,
 				B97459CB1F40488C00BAB115 /* MineBottomView.swift in Sources */,
 				B93A42961F332566009EBACE /* HouseListController.swift in Sources */,
+				B9242A091F41A38C00706084 /* BaseTableViewCell.swift in Sources */,
+				B9FBFE351F42D4F90092AE75 /* HouseListViewModel.swift in Sources */,
 				B97459AC1F39A35800BAB115 /* HouseSearchController.swift in Sources */,
 				B97459A81F39A27100BAB115 /* CustomSearchView.swift in Sources */,
+				B9242A0D1F41AA3C00706084 /* FirstStyleCell.swift in Sources */,
 				B97459941F3471FD00BAB115 /* HUDManager.swift in Sources */,
+				B9FBFE371F43F3330092AE75 /* Defines.swift in Sources */,
+				B92429FD1F41956800706084 /* PriceOptionView.swift in Sources */,
+				B9242A0B1F41A40100706084 /* BaseTableView.swift in Sources */,
 				B91DEBC71F14B902002B3919 /* NavigationController.swift in Sources */,
 				B93A42941F3303BA009EBACE /* PagingController.swift in Sources */,
 				B93A42921F32FC3B009EBACE /* PagingViewModel.swift in Sources */,
 				B938E4C71F172663005F42BF /* BaseViewModel.swift in Sources */,
 				B91DEBC51F14B544002B3919 /* LoadingBackgroundView.swift in Sources */,
 				B92429F31F41434300706084 /* Str.swift in Sources */,
+				B9FBFE331F42A5890092AE75 /* SecondStyleCell.swift in Sources */,
 				B97459AE1F39A7EE00BAB115 /* HouseSearchViewModel.swift in Sources */,
+				B9242A071F41A2F900706084 /* PriceAndSubwayOptionCell.swift in Sources */,
 				B91DEBC31F14B524002B3919 /* BaseView.swift in Sources */,
+				B9242A051F4199D100706084 /* DistrictOptionCell.swift in Sources */,
 				B97459BA1F3D500B00BAB115 /* JSInteraction.swift in Sources */,
 				B97459B01F3AE39500BAB115 /* ReleaseController.swift in Sources */,
 				B93A42901F32F72D009EBACE /* PullTableView.swift in Sources */,
+				B92429F51F41859100706084 /* BaseCollectionView.swift in Sources */,
+				B92429FF1F41957F00706084 /* StyleOptionView.swift in Sources */,
 				B93A42981F3325BB009EBACE /* House.swift in Sources */,
 				B938E4C51F171B88005F42BF /* ListController.swift in Sources */,
 				B97459AA1F39A2BD00BAB115 /* Global.swift in Sources */,
 				B92429ED1F413FCA00706084 /* MyReleaseController.swift in Sources */,
+				B9FBFE311F4291430092AE75 /* Notifications.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,6 +631,7 @@
 			baseConfigurationReference = 973AF5DD7CEA8605FCD9BB5D /* Pods-Afantizz.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 86U6748KYN;
 				INFOPLIST_FILE = Afantizz/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -577,6 +647,7 @@
 			baseConfigurationReference = 14B02A5E177DF35E1B850FE3 /* Pods-Afantizz.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 86U6748KYN;
 				INFOPLIST_FILE = Afantizz/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

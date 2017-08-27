@@ -28,7 +28,7 @@ class Networker: NSObject {
                 let json = JSON(value)
                 guard let errCode = json["err_code"].int,
                       let errMsg = json["err_msg"].string else {
-                        print("服务器数据格式错误")
+                        debugAlert(items: "服务器数据格式错误")
                         return
                 }
                 
@@ -67,7 +67,7 @@ class Networker: NSObject {
         case BizConsts.networkPoorCode:
             print("网络异常")
         default:
-            print("请检查url或者参数是否正确")
+            debugAlert(items: "请检查url或者参数是否正确")
         }
     }
 }

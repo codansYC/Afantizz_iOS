@@ -64,6 +64,7 @@ class CMBProgressHUD: MBProgressHUD {
         bezelView.style = .solidColor
         bezelView.color = UIColor.black.withAlphaComponent(0.8)
         contentColor = UIColor.white
+        layer.zPosition = UIViewLevel.hud
     }
 
 }
