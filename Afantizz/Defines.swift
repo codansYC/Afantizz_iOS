@@ -36,3 +36,16 @@ struct UIViewLevel {
     static let Loading: CGFloat = 1
     static let hud: CGFloat = 2
 }
+
+struct Screen {
+    static let frame = UIScreen.main.applicationFrame
+    static let bounds = UIScreen.main.bounds
+    static let size = UIScreen.main.bounds.size
+    static let width = UIScreen.main.bounds.width
+    static let height = UIScreen.main.bounds.height
+    static let width_iPhone4 : CGFloat = 320
+    static let width_iPhone5 : CGFloat = 320
+    static let width_iPhone6 : CGFloat = 375
+    static let width_iPhone6p: CGFloat = 414
+}
+

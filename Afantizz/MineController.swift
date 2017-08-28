@@ -25,6 +25,16 @@ class MineController: TableController, UITableViewDelegate, UITableViewDataSourc
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         mineVM.getUserInfoIfLogin()
@@ -44,6 +54,7 @@ class MineController: TableController, UITableViewDelegate, UITableViewDataSourc
         tableView.delegate = self
         tableView.dataSource = self
         tableView.sectionHeaderHeight = sectionH
+        tableView.showsVerticalScrollIndicator = false
     }
     
     func setUpEvents() {
@@ -85,6 +96,8 @@ class MineController: TableController, UITableViewDelegate, UITableViewDataSourc
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
         cell.selectionStyle = .none
         cell.accessoryType = .disclosureIndicator
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
+        cell.textLabel?.textColor = UIColor.hx333
         let section = indexPath.section
         let row = indexPath.row
         switch section {

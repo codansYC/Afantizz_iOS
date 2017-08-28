@@ -19,4 +19,5 @@ class NavigationController: UINavigationController {
         navigationBar.tintColor = UIColor.white
         navigationBar.isTranslucent = false
     }
+    
 }

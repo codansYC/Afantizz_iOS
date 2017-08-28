@@ -18,6 +18,7 @@ class MineBottomView: BaseView {
         super.init(frame: frame)
         self.frame.size.height = 150
         actionBtn.layer.cornerRadius = 4
+        actionBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         addSubview(actionBtn)
         actionBtn.snp.makeConstraints { (make) in
             make.top.equalTo(40)

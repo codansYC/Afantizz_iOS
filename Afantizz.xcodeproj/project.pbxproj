@@ -70,6 +70,9 @@
 		B97459C71F40337F00BAB115 /* head-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B97459C61F40337F00BAB115 /* head-icon.png */; };
 		B97459C91F4045AD00BAB115 /* MineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97459C81F4045AD00BAB115 /* MineViewModel.swift */; };
 		B97459CB1F40488C00BAB115 /* MineBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97459CA1F40488C00BAB115 /* MineBottomView.swift */; };
+		B9BCDD791F540EEF003282DE /* SlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BCDD781F540EEF003282DE /* SlideView.swift */; };
+		B9BCDD7B1F540F27003282DE /* SortSlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BCDD7A1F540F27003282DE /* SortSlideView.swift */; };
+		B9BCDD7D1F541038003282DE /* Number+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BCDD7C1F541038003282DE /* Number+extension.swift */; };
 		B9FBFE311F4291430092AE75 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FBFE301F4291430092AE75 /* Notifications.swift */; };
 		B9FBFE331F42A5890092AE75 /* SecondStyleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FBFE321F42A5890092AE75 /* SecondStyleCell.swift */; };
 		B9FBFE351F42D4F90092AE75 /* HouseListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FBFE341F42D4F90092AE75 /* HouseListViewModel.swift */; };
@@ -143,6 +146,9 @@
 		B97459C61F40337F00BAB115 /* head-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "head-icon.png"; sourceTree = "<group>"; };
 		B97459C81F4045AD00BAB115 /* MineViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineViewModel.swift; sourceTree = "<group>"; };
 		B97459CA1F40488C00BAB115 /* MineBottomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineBottomView.swift; sourceTree = "<group>"; };
+		B9BCDD781F540EEF003282DE /* SlideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideView.swift; sourceTree = "<group>"; };
+		B9BCDD7A1F540F27003282DE /* SortSlideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortSlideView.swift; sourceTree = "<group>"; };
+		B9BCDD7C1F541038003282DE /* Number+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Number+extension.swift"; sourceTree = "<group>"; };
 		B9FBFE301F4291430092AE75 /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		B9FBFE321F42A5890092AE75 /* SecondStyleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondStyleCell.swift; sourceTree = "<group>"; };
 		B9FBFE341F42D4F90092AE75 /* HouseListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseListViewModel.swift; sourceTree = "<group>"; };
@@ -242,6 +248,7 @@
 				B9242A061F41A2F800706084 /* PriceAndSubwayOptionCell.swift */,
 				B9242A0C1F41AA3C00706084 /* FirstStyleCell.swift */,
 				B9FBFE321F42A5890092AE75 /* SecondStyleCell.swift */,
+				B9BCDD7A1F540F27003282DE /* SortSlideView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -273,6 +280,7 @@
 				B91DEBBC1F14B13F002B3919 /* UIViewController+extension.swift */,
 				B91DEBCA1F14BA21002B3919 /* UIImage+extension.swift */,
 				B97459B71F3C769B00BAB115 /* UserDefaults+extension.swift */,
+				B9BCDD7C1F541038003282DE /* Number+extension.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -306,6 +314,7 @@
 				B92429F21F41434300706084 /* Str.swift */,
 				B9FBFE301F4291430092AE75 /* Notifications.swift */,
 				B9FBFE361F43F3330092AE75 /* Defines.swift */,
+				B9BCDD781F540EEF003282DE /* SlideView.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -467,6 +476,7 @@
 				B97459B21F3AE4A500BAB115 /* User.swift in Sources */,
 				B9242A011F41959200706084 /* SubwayOptionView.swift in Sources */,
 				B91DEBCB1F14BA21002B3919 /* UIImage+extension.swift in Sources */,
+				B9BCDD791F540EEF003282DE /* SlideView.swift in Sources */,
 				B91DEBC11F14B4EA002B3919 /* BaseController.swift in Sources */,
 				B92429F71F4185C900706084 /* FilterView.swift in Sources */,
 				B91DEBBD1F14B13F002B3919 /* UIViewController+extension.swift in Sources */,
@@ -485,6 +495,7 @@
 				B97459CB1F40488C00BAB115 /* MineBottomView.swift in Sources */,
 				B93A42961F332566009EBACE /* HouseListController.swift in Sources */,
 				B9242A091F41A38C00706084 /* BaseTableViewCell.swift in Sources */,
+				B9BCDD7B1F540F27003282DE /* SortSlideView.swift in Sources */,
 				B9FBFE351F42D4F90092AE75 /* HouseListViewModel.swift in Sources */,
 				B97459AC1F39A35800BAB115 /* HouseSearchController.swift in Sources */,
 				B97459A81F39A27100BAB115 /* CustomSearchView.swift in Sources */,
@@ -508,6 +519,7 @@
 				B97459B01F3AE39500BAB115 /* ReleaseController.swift in Sources */,
 				B93A42901F32F72D009EBACE /* PullTableView.swift in Sources */,
 				B92429F51F41859100706084 /* BaseCollectionView.swift in Sources */,
+				B9BCDD7D1F541038003282DE /* Number+extension.swift in Sources */,
 				B92429FF1F41957F00706084 /* StyleOptionView.swift in Sources */,
 				B93A42981F3325BB009EBACE /* House.swift in Sources */,
 				B938E4C51F171B88005F42BF /* ListController.swift in Sources */,

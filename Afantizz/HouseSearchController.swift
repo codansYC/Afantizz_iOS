@@ -20,6 +20,8 @@ class HouseSearchController: TableController {
     
     let viewModel = HouseSearchViewModel()
     
+    var isFirstAppear = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViews()
@@ -28,13 +30,19 @@ class HouseSearchController: TableController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        parent?.navigationController?.setNavigationBarHidden(true, animated: false)
+        tabBarController?.tabBar.isHidden = true
+        if isFirstAppear {
+            isFirstAppear = false
+            return
+        }
+        navigationController?.setNavigationBarHidden(true, animated: false)
         UIApplication.shared.setStatusBarStyle(.default, animated: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         searchV.searchBar.becomeFirstResponder()
+        view.frame = Screen.bounds
     }
     
     func setUpViews() {
@@ -47,7 +55,7 @@ class HouseSearchController: TableController {
         view.addSubview(searchV)
         let cancelBtn = searchV.cancelBtn
         cancelBtn.setTitle("取消", for: .normal)
-        cancelBtn.setTitleColor(UIColor.hx4e4e4e, for: .normal)
+        cancelBtn.setTitleColor(UIColor.hx34c86c, for: .normal)
         cancelBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         let searchBar = searchV.searchBar
         searchBar?.placeholder = "请输入关键字"
@@ -100,7 +108,9 @@ class HouseSearchController: TableController {
         }.addDisposableTo(disposeBag)
 
         tableView.rx.modelSelected(House.self).bind { (house) in
-            print(house.house_id)
+            self.toDetailVC(house.house_id)
+            self.navigationController?.setNavigationBarHidden(false, animated: false)
+            UIApplication.shared.setStatusBarStyle(.default, animated: true)
         }.addDisposableTo(disposeBag)
         
     }

@@ -37,6 +37,8 @@ class MineTopView: BaseView {
         
         textLabel = UILabel()
         textLabel.text = "未登录"
+        textLabel.textColor = UIColor.hx596167
+        textLabel.font = UIFont.systemFont(ofSize: 15)
         infoBg.addSubview(textLabel)
         
         bgImgV.snp.makeConstraints { (make) in

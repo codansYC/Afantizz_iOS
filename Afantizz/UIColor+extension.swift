@@ -11,19 +11,27 @@ import UIKit
 extension UIColor {
     
     static func colorWithHex(hex: Int) -> UIColor {
+        return UIColor.colorWithHex(hex: hex, alpha: 1)
+    }
+    
+    static func colorWithHex(hex: Int, alpha: CGFloat) -> UIColor {
         return UIColor(
             red: CGFloat((hex & 0xFF0000) >> 16) / 255.0,
             green: CGFloat((hex & 0x00FF00) >> 8) / 255.0,
             blue: CGFloat(hex & 0x0000FF) / 255.0,
-            alpha: CGFloat(1.0)
+            alpha: alpha
         )
     }
     
     static func colorWithRGB(r: Int, g: Int, b: Int) -> UIColor {
-            return UIColor(red: CGFloat(r) / 255.0,
-                           green: CGFloat(g) / 255.0,
-                           blue: CGFloat(b) / 255.0,
-                           alpha: 1)
+            return UIColor.colorWithRGBA(r: r, g: g, b: b, a: 1)
+    }
+    
+    static func colorWithRGBA(r: Int, g: Int, b: Int, a: CGFloat) -> UIColor {
+        return UIColor(red: CGFloat(r) / 255.0,
+                       green: CGFloat(g) / 255.0,
+                       blue: CGFloat(b) / 255.0,
+                       alpha: a)
     }
     
     //导航栏颜色

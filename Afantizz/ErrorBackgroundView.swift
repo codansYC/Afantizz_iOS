@@ -86,6 +86,7 @@ class ErrorBackgroundView: UIView {
             descLabel = UILabel()
             descLabel?.text = desc
             descLabel?.textColor = UIColor.hx34c86c
+            descLabel?.font = UIFont.systemFont(ofSize: 15)
         }
         
         addSubview(descLabel!)

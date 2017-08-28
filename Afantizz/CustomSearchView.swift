@@ -128,14 +128,11 @@ class CustomSearchView: UIView,UISearchBarDelegate {
         
         if isShowCancelButtonWhenEdit {
             searchBar.setShowsCancelButton(true, animated: true)
-        }
-        
-        if isShowCancelButtonWhenEdit {
-            let btn = searchBar.value(forKey: "cancelButton") as! UIButton
-            btn.setTitle(cancelBtn.currentTitle, for: .normal)
-            btn.setTitleColor(cancelBtn.currentTitleColor, for: .normal)
-            btn.titleLabel?.font = UIFont.systemFont(ofSize: cancelBtn.titleLabel?.font.pointSize ?? 15)
-            cancelBtn = btn
+            let btn = self.searchBar.value(forKey: "_cancelButton") as! UIButton
+            btn.setTitle(self.cancelBtn.currentTitle, for: .normal)
+            btn.setTitleColor(self.cancelBtn.currentTitleColor, for: .normal)
+            btn.titleLabel?.font = UIFont.systemFont(ofSize: self.cancelBtn.titleLabel?.font.pointSize ?? 15)
+            self.cancelBtn = btn
         }
         
         isAnimating = true

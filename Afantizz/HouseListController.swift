@@ -21,6 +21,7 @@ class HouseListController: PagingController<House>, UITableViewDelegate {
     var filterState = FilterViewState.none
     var filterViews = [HouseOptionView]()
     let houseListVM = HouseListViewModel()
+    let sortSlideV = SortSlideView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +40,21 @@ class HouseListController: PagingController<House>, UITableViewDelegate {
     }
     
     func setUpViews() {
+        let leftItem = UIBarButtonItem()
+        leftItem.title = "上海"
+        leftItem.setTitleTextAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 15)], for: .normal)
+        navigationItem.leftBarButtonItem = leftItem
+        
+        let rightItem = UIBarButtonItem()
+        rightItem.title = "排序"
+        rightItem.setTitleTextAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 15)], for: .normal)
+        navigationItem.rightBarButtonItem = rightItem
+        rightItem.rx.tap.bind {
+            self.sortSlideV.switchShowState()
+        }.addDisposableTo(disposeBag)
+        
         let searchV = CustomSearchView(frame: CGRect.init(x: 0, y: 0, width: Global.ScreenWidth, height: 50))
+        searchV.hidesNavigationBarDuringPresentation = false
         searchV.backgroundColor = UIColor.hxf5f5f5
         searchV.isHidSystemBorder = true
         searchV.fieldHeight = 35
@@ -54,7 +69,6 @@ class HouseListController: PagingController<House>, UITableViewDelegate {
         }
         searchBtn.rx.tap.bind { [unowned self] in
             let searchVC = HouseSearchController()
-            self.tabBarController?.tabBar.isHidden = true
             self.addChildViewController(searchVC)
             self.view.addSubview(searchVC.view)
         }.addDisposableTo(disposeBag)
@@ -66,8 +80,8 @@ class HouseListController: PagingController<House>, UITableViewDelegate {
             self.styleV.firstTableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
             self.styleV.secondTableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
             self.subwayV.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
-
         }
+        view.addSubview(sortSlideV)
     }
     
     override func setUpTableView() {
@@ -85,6 +99,7 @@ class HouseListController: PagingController<House>, UITableViewDelegate {
     }
     
     func setUpEvents() {
+        
         filterV.collectionV.rx.itemSelected.bind { [unowned self] indexPath in
             self.tableView.setContentOffset(CGPoint(x: 0, y: 50), animated: false)
             if indexPath.row == self.filterState.rawValue {
@@ -106,23 +121,29 @@ class HouseListController: PagingController<House>, UITableViewDelegate {
             self.adjustFilterUI()
         }.addDisposableTo(disposeBag)
         
-        districtV.collectionV.rx.modelSelected(String.self).asObservable().bind(onNext: { (district) in
+        districtV.collectionV.rx.modelSelected(String.self).asObservable().bind(onNext: { [unowned self] (district) in
             self.refreshListWithFilter()
         }).addDisposableTo(disposeBag)
-        priceV.tableView.rx.modelSelected(String.self).asObservable().bind(onNext: { (price) in
+        priceV.tableView.rx.modelSelected(String.self).asObservable().bind(onNext: { [unowned self](price) in
             self.refreshListWithFilter()
         }).addDisposableTo(disposeBag)
-        styleV.firstTableView.rx.modelSelected(String.self).asObservable().bind(onNext: { (rentMode) in
+        styleV.firstTableView.rx.modelSelected(String.self).asObservable().bind(onNext: { [unowned self] (rentMode) in
             if rentMode == Str.unlimited || rentMode == "公寓" {
                 self.refreshListWithFilter()
             }
         }).addDisposableTo(disposeBag)
-        styleV.secondTableView.rx.modelSelected(String.self).asObservable().bind(onNext: { (style) in
+        styleV.secondTableView.rx.modelSelected(String.self).asObservable().bind(onNext: { [unowned self] (style) in
             self.refreshListWithFilter()
         }).addDisposableTo(disposeBag)
         subwayV.tableView.rx.modelSelected(String.self).asObservable().bind(onNext: { (subway) in
             self.refreshListWithFilter()
         }).addDisposableTo(disposeBag)
+        
+        sortSlideV.tableView.rx.modelSelected(String.self).bind { [unowned self] (item) in
+            self.sortSlideV.dismiss()
+            self.houseListVM.sort = item
+            self.houseListVM.pullDownRefresh()
+        }.addDisposableTo(disposeBag)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

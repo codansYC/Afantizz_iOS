@@ -33,7 +33,7 @@ class LoginController: BaseController {
         phoneField.placeholder = "请输入手机号"
         view.addSubview(phoneField)
         phoneField.snp.makeConstraints { (make) in
-            make.top.equalTo(150)
+            make.top.equalTo(120)
             make.centerX.equalTo(view)
             make.width.equalTo(270)
             make.height.equalTo(34)
@@ -52,12 +52,13 @@ class LoginController: BaseController {
         codeField.placeholder = "请输入验证码"
         view.addSubview(codeField)
         codeField.snp.makeConstraints { (make) in
-            make.top.equalTo(line1.snp.bottom).offset(40)
+            make.top.equalTo(line1.snp.bottom).offset(35)
             make.left.equalTo(phoneField)
         }
         
         sendCodeBtn = UIButton()
         sendCodeBtn.setTitle("获取验证码", for: .normal)
+        sendCodeBtn.titleLabel?.font = UIFont.systemFont(ofSize: 13)
         sendCodeBtn.setTitleColor(UIColor.hx34c86c, for: .normal)
         sendCodeBtn.setTitleColor(UIColor.hx888b9a, for: .disabled)
         sendCodeBtn.contentMode = .right
