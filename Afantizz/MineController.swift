@@ -61,7 +61,7 @@ class MineController: TableController, UITableViewDelegate, UITableViewDataSourc
         mineVM.loginState.asObservable().bind { [unowned self] (isLogin) in
             self.topView.loginState.value = isLogin
             self.bottomView.loginState.value = isLogin
-        }.addDisposableTo(disposeBag)
+        }.disposed(by: disposeBag)
         
         bottomView.actionBtn.rx.tap.bind { [unowned self] in
             if Global.isLogin {
@@ -69,7 +69,7 @@ class MineController: TableController, UITableViewDelegate, UITableViewDataSourc
             } else {
                 Global.toLoginPage()
             }
-        }.addDisposableTo(disposeBag)
+        }.disposed(by: disposeBag)
     }
     
     //MARK: -  tableView delegate datasource

@@ -95,8 +95,8 @@ class HouseListCell: UITableViewCell {
             make.right.equalTo(titleLabel)
             make.centerY.equalTo(addressLabel)
         }
-        addressLabel.setContentCompressionResistancePriority(100, for: .horizontal)
-        rentModeLabel.setContentHuggingPriority(900, for: .horizontal)
+        addressLabel.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 100), for: .horizontal)
+        rentModeLabel.setContentHuggingPriority(UILayoutPriority(rawValue: 900), for: .horizontal)
         tagsV.snp.makeConstraints { (make) in
             make.left.equalTo(addressLabel)
             make.bottom.equalTo(priceLabel.snp.top)
@@ -148,7 +148,7 @@ class HouseListCell: UITableViewCell {
         //房间结构(几室几厅)
         if !house.style.isEmpty {
             let stylePrefix = house.style.components(separatedBy: "厅")[0] + "厅"
-            if stylePrefix.characters.count >= 4 {
+            if stylePrefix.count >= 4 {
                 let styleLabel = TagLabel()
                 styleLabel.text = stylePrefix
                 tagsV.addSubview(styleLabel)
@@ -157,7 +157,7 @@ class HouseListCell: UITableViewCell {
         //主卧或次卧
         if house.rent_mode == "合租" {
             let rentModeLabel = TagLabel()
-            rentModeLabel.text = house.style.substring(from: house.style.index(house.style.endIndex, offsetBy: -2))
+            rentModeLabel.text = String(house.style[house.style.index(house.style.endIndex, offsetBy: -2)..<house.style.endIndex])
             tagsV.addSubview(rentModeLabel)
         }
         //独立卫生间

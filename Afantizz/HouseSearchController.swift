@@ -86,7 +86,7 @@ class HouseSearchController: TableController {
                 self.removeFromParentViewController()
             }
             self.isFirst = false
-        }.addDisposableTo(disposeBag)
+        }.disposed(by: disposeBag)
         
         searchV.searchBtnClick = { [unowned self] searchV in
             searchV.searchBar.resignFirstResponder()
@@ -102,16 +102,16 @@ class HouseSearchController: TableController {
         viewModel.searchResult.asObservable().bind(to: self.tableView.rx.items(cellIdentifier: self.reuseIdentifier, cellType: HouseListCell.self)) {
                 row, model, cell in
                 cell.house = model
-        }.addDisposableTo(self.disposeBag)
+            }.disposed(by: disposeBag)
         viewModel.searchResult.asObservable().bind { (houses) in
             self.searchEmptyView.isHidden = !houses.isEmpty
-        }.addDisposableTo(disposeBag)
+        }.disposed(by: disposeBag)
 
         tableView.rx.modelSelected(House.self).bind { (house) in
             self.toDetailVC(house.house_id)
             self.navigationController?.setNavigationBarHidden(false, animated: false)
             UIApplication.shared.setStatusBarStyle(.default, animated: true)
-        }.addDisposableTo(disposeBag)
+        }.disposed(by: disposeBag)
         
     }
     

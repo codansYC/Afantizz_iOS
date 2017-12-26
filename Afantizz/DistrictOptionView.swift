@@ -30,7 +30,7 @@ class DistrictOptionView: HouseOptionView {
         collectionV.register(DistrictOptionCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         items.asObservable().bind(to: collectionV.rx.items(cellIdentifier: reuseIdentifier, cellType: DistrictOptionCell.self)) { row, model, cell in
             cell.item = model
-        }.addDisposableTo(disposeBag)
+        }.disposed(by: disposeBag)
     }
     
     required init?(coder aDecoder: NSCoder) {

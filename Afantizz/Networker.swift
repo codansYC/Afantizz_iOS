@@ -14,7 +14,7 @@ typealias JsonString = String
 
 typealias SuccessClosure = (JsonString?) -> Void
 typealias ErrorClosure = (Int, String) -> Void
-typealias NetworkErrorClosure = (Void)->Void
+typealias NetworkErrorClosure = ()->Void
 
 class Networker: NSObject {
     

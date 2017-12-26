@@ -102,7 +102,7 @@ class LoginController: BaseController {
                 return isPhone && !isCounting
             })
             .bind(to: sendCodeBtn.rx.isEnabled)
-        .addDisposableTo(disposeBag)
+        .disposed(by: disposeBag)
             
         
         sendCodeBtn.rx.tap.bind { [unowned self] _ in
@@ -113,16 +113,16 @@ class LoginController: BaseController {
             }
             self.viewModel.getCode(phone: phone!).bind(onNext: { [weak self] (_) in
                 guard let this = self else { return }
-                this.viewModel.countDown().bind(to: this.sendCodeBtn.rx.title()).addDisposableTo(this.disposeBag)
-            }).addDisposableTo(self.disposeBag)
-        }.addDisposableTo(disposeBag)
+                this.viewModel.countDown().bind(to: this.sendCodeBtn.rx.title()).disposed(by: this.disposeBag)
+            }).disposed(by: self.disposeBag)
+        }.disposed(by: disposeBag)
         
         Observable.combineLatest(phoneObservable,codeObservable).map { (isPhone, isCaptcha) -> Bool in
             return isPhone && isCaptcha
         }.bind { (isEnable) in
             self.loginBtn.isEnabled = isEnable
             self.loginBtn.backgroundColor = isEnable ? UIColor.hx34c86c : UIColor.hx888b9a
-        }.addDisposableTo(disposeBag)
+        }.disposed(by: disposeBag)
     
         loginBtn.rx.tap.bind { [unowned self] _ in
             self.phoneField.resignFirstResponder()
@@ -138,11 +138,11 @@ class LoginController: BaseController {
             }
             self.viewModel.login(phone: phone!, code: code!).bind(onNext: { [weak self] _ in
                 self?.navigationController?.dismiss(animated: true, completion: nil)
-            }).addDisposableTo(self.disposeBag)
-        }.addDisposableTo(disposeBag)
+            }).disposed(by: self.disposeBag)
+        }.disposed(by: disposeBag)
     }
     
-    func close() {
+    @objc func close() {
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
 }

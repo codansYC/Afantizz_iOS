@@ -25,7 +25,7 @@ class HouseOptionView: BaseView {
         tap.rx.event.bind { [unowned self] (tap) in
             self.removeFromSuperview()
             NotificationCenter.default.post(name: Notification.Name.FilterViewDidRemoved, object: self)
-        }.addDisposableTo(disposeBag)
+        }.disposed(by: disposeBag)
         obscureView.addGestureRecognizer(tap)
     }
     

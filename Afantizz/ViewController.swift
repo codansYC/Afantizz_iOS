@@ -27,7 +27,7 @@ class ViewController: PagingController<House>, UITableViewDelegate,UITableViewDa
         pagingVM?.listSource.asObservable().bind(onNext: { (houses) in
             self.houses = houses
             self.tableView.reloadData()
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
     }
     
     

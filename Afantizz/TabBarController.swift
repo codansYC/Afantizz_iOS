@@ -13,8 +13,8 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.hx888b9a], for: .normal)
-        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.hx337ab7], for: .selected)
+        UITabBarItem.appearance().setTitleTextAttributes([.foregroundColor: UIColor.hx888b9a], for: .normal)
+        UITabBarItem.appearance().setTitleTextAttributes([.foregroundColor: UIColor.hx337ab7], for: .selected)
         tabBar.tintColor = UIColor.hx337ab7
         tabBar.isTranslucent = false
         self.delegate = self
@@ -22,7 +22,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     }
     
     
-    dynamic func addChildren() -> Void {
+    func addChildren() -> Void {
         
         addChild(HouseListController(), title: "房源", image: UIImage(named: "home"))
         addChild(ReleaseController(), title: "发布", image: UIImage(named: "edit"))

@@ -8,12 +8,15 @@
 
 import UIKit
 
-extension SignedNumber {
+extension Double {
     var layout: CGFloat {
-        if let number = self as? NSNumber {
-            return  Screen.width / Screen.width_iPhone6 * CGFloat(number)
-        }
-        return CGFloat(0)
+        return  Screen.width / Screen.width_iPhone6 * CGFloat(self)
+    }
+}
+
+extension Int {
+    var layout: CGFloat {
+        return  Screen.width / Screen.width_iPhone6 * CGFloat(self)
     }
 }
 

@@ -34,7 +34,7 @@ class MineBottomView: BaseView {
             self.actionBtn.setTitle(title, for: .normal)
             self.actionBtn.backgroundColor = bgColor
             self.actionBtn.layer.borderColor = bdColor.cgColor
-        }.addDisposableTo(disposeBag)
+        }.disposed(by: disposeBag)
     }
     
     required init?(coder aDecoder: NSCoder) {

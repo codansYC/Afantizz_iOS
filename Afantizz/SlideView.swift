@@ -16,22 +16,22 @@ class SlideView: BaseView {
     let SCREENWIDTH = UIScreen.main.bounds.width
     let SCREENHEIGHT = UIScreen.main.bounds.height
     
-    dynamic var screenPan: UIScreenEdgePanGestureRecognizer!
-    dynamic var bgV: UIView?
+    var screenPan: UIScreenEdgePanGestureRecognizer!
+    var bgV: UIView?
     var direction = Direction.right
     
-    dynamic var isShow = false
+    var isShow = false
     
-    dynamic var minX: CGFloat {
+    var minX: CGFloat {
         return direction == .left ? -bounds.width : SCREENWIDTH - bounds.width }
-    dynamic var maxX: CGFloat {
+    var maxX: CGFloat {
         return direction == .left ? 0 : SCREENWIDTH
     }
-    dynamic var midX: CGFloat {
+    var midX: CGFloat {
         return (maxX + minX) / 2
     }
-    dynamic var currentX: CGFloat { return frame.origin.x }
-    dynamic var bgVColor: UIColor {
+    var currentX: CGFloat { return frame.origin.x }
+    var bgVColor: UIColor {
         let alphaComponent = 0.5 * (maxX - currentX) / (maxX - minX)
         return UIColor.black.withAlphaComponent(alphaComponent)
     }
@@ -59,14 +59,14 @@ class SlideView: BaseView {
         commonInit()
     }
     
-    dynamic func commonInit() {
+    func commonInit() {
  
         backgroundColor = UIColor.white
         
         let pan = UIPanGestureRecognizer()
         pan.rx.event.bind { [unowned self] (pan) in
             self.handlePan(pan)
-            }.addDisposableTo(disposeBag)
+            }.disposed(by: disposeBag)
         self.addGestureRecognizer(pan)
         
         bgV = UIView()
@@ -75,13 +75,13 @@ class SlideView: BaseView {
         let tap = UITapGestureRecognizer()
         tap.rx.event.bind { [unowned self] (tap) in
             self.dismiss()
-            }.addDisposableTo(disposeBag)
+            }.disposed(by: disposeBag)
         bgV?.addGestureRecognizer(tap)
         
         let bgVPan = UIPanGestureRecognizer()
         bgVPan.rx.event.bind { [unowned self](pan) in
             self.handlePan(pan)
-            }.addDisposableTo(disposeBag)
+            }.disposed(by: disposeBag)
         bgV?.addGestureRecognizer(bgVPan)
         
     }
@@ -100,14 +100,14 @@ class SlideView: BaseView {
             screenPan.edges = direction == .left ? .left : .right
             screenPan.rx.event.bind { [unowned self] (pan) in
                 self.handlePan(pan)
-                }.addDisposableTo(disposeBag)
+                }.disposed(by: disposeBag)
             superview.addGestureRecognizer(screenPan)
         }
         bgV?.frame = superview.bounds
 
     }
     
-    dynamic func handlePan(_ pan:UIPanGestureRecognizer) {
+    func handlePan(_ pan:UIPanGestureRecognizer) {
         
         bgVShowing()
         
@@ -144,7 +144,7 @@ class SlideView: BaseView {
         
     }
     
-    dynamic func show() {
+    func show() {
         
         isShow = true
         UIView.animate(withDuration: 0.3, animations: {
@@ -157,7 +157,7 @@ class SlideView: BaseView {
         }) 
     }
     
-    dynamic func dismiss() {
+    func dismiss() {
         
         isShow = false
         
@@ -173,7 +173,7 @@ class SlideView: BaseView {
         }) 
     }
     
-    dynamic func switchShowState() {
+    func switchShowState() {
         bgVShowing()
         if isShow {
             dismiss()
@@ -182,7 +182,7 @@ class SlideView: BaseView {
         }
     }
     
-    dynamic func bgVShowing() {
+    func bgVShowing() {
         if bgV == nil {return}
         if bgV?.superview == nil {
             superview?.insertSubview(bgV!, belowSubview: self)

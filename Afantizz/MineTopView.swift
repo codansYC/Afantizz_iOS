@@ -66,7 +66,7 @@ class MineTopView: BaseView {
         
         loginState.asObservable().bind { [unowned self] (isLogin) in
             self.textLabel.text = isLogin ? Global.user?.phone : "未登录"
-        }.addDisposableTo(disposeBag)
+        }.disposed(by: disposeBag)
         
     }
     

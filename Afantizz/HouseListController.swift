@@ -33,7 +33,7 @@ class HouseListController: PagingController<House>, UITableViewDelegate {
                 
         houseListVM.listSource.asObservable().bind(to: tableView.rx.items(cellIdentifier: reuseIdentifier, cellType: HouseListCell.self)) { row, model, cell in
             cell.house = model
-        }.addDisposableTo(disposeBag)
+        }.disposed(by: disposeBag)
         
         setUpEvents()
         filterViews = [districtV, priceV, styleV, subwayV]
@@ -42,16 +42,16 @@ class HouseListController: PagingController<House>, UITableViewDelegate {
     func setUpViews() {
         let leftItem = UIBarButtonItem()
         leftItem.title = "上海"
-        leftItem.setTitleTextAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 15)], for: .normal)
+        leftItem.setTitleTextAttributes([NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15)], for: .normal)
         navigationItem.leftBarButtonItem = leftItem
         
         let rightItem = UIBarButtonItem()
         rightItem.title = "排序"
-        rightItem.setTitleTextAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 15)], for: .normal)
+        rightItem.setTitleTextAttributes([NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15)], for: .normal)
         navigationItem.rightBarButtonItem = rightItem
         rightItem.rx.tap.bind {
             self.sortSlideV.switchShowState()
-        }.addDisposableTo(disposeBag)
+        }.disposed(by: disposeBag)
         
         let searchV = CustomSearchView(frame: CGRect.init(x: 0, y: 0, width: Global.ScreenWidth, height: 50))
         searchV.hidesNavigationBarDuringPresentation = false
@@ -71,7 +71,7 @@ class HouseListController: PagingController<House>, UITableViewDelegate {
             let searchVC = HouseSearchController()
             self.addChildViewController(searchVC)
             self.view.addSubview(searchVC.view)
-        }.addDisposableTo(disposeBag)
+        }.disposed(by: disposeBag)
         
         DispatchQueue.main.async {
             let indexPath = IndexPath(item: 0, section: 0)
@@ -95,7 +95,7 @@ class HouseListController: PagingController<House>, UITableViewDelegate {
         
         tableView.rx.modelSelected(House.self).bind { [unowned self] (house) in
             self.toDetailVC(house.house_id)
-        }.addDisposableTo(disposeBag)
+        }.disposed(by: disposeBag)
     }
     
     func setUpEvents() {
@@ -114,36 +114,36 @@ class HouseListController: PagingController<House>, UITableViewDelegate {
                     v.removeFromSuperview()
                 }
             }
-        }.addDisposableTo(disposeBag)
+        }.disposed(by: disposeBag)
         
         NotificationCenter.default.rx.notification(Notification.Name.FilterViewDidRemoved).bind { [unowned self] noti in
             self.filterState = .none
             self.adjustFilterUI()
-        }.addDisposableTo(disposeBag)
+        }.disposed(by: disposeBag)
         
         districtV.collectionV.rx.modelSelected(String.self).asObservable().bind(onNext: { [unowned self] (district) in
             self.refreshListWithFilter()
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
         priceV.tableView.rx.modelSelected(String.self).asObservable().bind(onNext: { [unowned self](price) in
             self.refreshListWithFilter()
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
         styleV.firstTableView.rx.modelSelected(String.self).asObservable().bind(onNext: { [unowned self] (rentMode) in
             if rentMode == Str.unlimited || rentMode == "公寓" {
                 self.refreshListWithFilter()
             }
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
         styleV.secondTableView.rx.modelSelected(String.self).asObservable().bind(onNext: { [unowned self] (style) in
             self.refreshListWithFilter()
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
         subwayV.tableView.rx.modelSelected(String.self).asObservable().bind(onNext: { (subway) in
             self.refreshListWithFilter()
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
         
         sortSlideV.tableView.rx.modelSelected(String.self).bind { [unowned self] (item) in
             self.sortSlideV.dismiss()
             self.houseListVM.sort = item
             self.houseListVM.pullDownRefresh()
-        }.addDisposableTo(disposeBag)
+        }.disposed(by: disposeBag)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

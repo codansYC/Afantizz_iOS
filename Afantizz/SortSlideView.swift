@@ -27,7 +27,7 @@ class SortSlideView: SlideView {
         tableView.register(SortCell.self, forCellReuseIdentifier: "cell")
         items.asObservable().bind(to: tableView.rx.items(cellIdentifier: "cell", cellType: SortCell.self)) { row, model, cell in
             cell.item = model
-        }.addDisposableTo(disposeBag)
+            }.disposed(by: disposeBag)
         
         DispatchQueue.main.async {
             self.tableView.selectRow(at: IndexPath.init(row: 0, section: 0), animated: false, scrollPosition: .none)

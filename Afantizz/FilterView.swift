@@ -44,7 +44,7 @@ class FilterView: BaseView {
         
         items.asObservable().bind(to: collectionV.rx.items(cellIdentifier: reuseIdentifier, cellType: FilterCell.self)) { row, model, cell in
             cell.item = model
-        }.addDisposableTo(disposeBag)
+        }.disposed(by: disposeBag)
     }
 
 }

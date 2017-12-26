@@ -56,15 +56,15 @@ class StyleOptionView: HouseOptionView {
         items1.asObservable().bind(to: firstTableView.rx.items(cellIdentifier: reuseIdentifier1, cellType: FirstStyleCell.self)) { row, model, cell in
             cell.item = model
             cell.arrow.isHidden = row == 0 || row == 3
-        }.addDisposableTo(disposeBag)
+            }.disposed(by: disposeBag)
         
         items2.asObservable().bind(to: secondTableView.rx.items(cellIdentifier: reuseIdentifier2, cellType: SecondStyleCell.self)) { row, model, cell in
             cell.item = model
-        }.addDisposableTo(disposeBag)
+        }.disposed(by: disposeBag)
         
         firstTableView.rx.itemSelected.bind { [unowned self] indexPath in
             self.showSecondTableView(show: indexPath.row == 1 || indexPath.row == 2)
-        }.addDisposableTo(disposeBag)
+            }.disposed(by: disposeBag)
         
         showSecondTableView(show: false)
     }

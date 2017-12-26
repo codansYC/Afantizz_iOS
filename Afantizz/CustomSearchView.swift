@@ -154,7 +154,7 @@ class CustomSearchView: UIView,UISearchBarDelegate {
         }
     }
     
-    func slideDown() {
+    @objc func slideDown() {
         
         if !isActive { return }
         

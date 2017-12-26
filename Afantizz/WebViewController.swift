@@ -78,7 +78,7 @@ class WebViewController: BaseController, NJKWebViewProgressDelegate, UIWebViewDe
         }
     }
     
-    func closeItemPress() {
+    @objc func closeItemPress() {
         dismiss(animated: true, completion: nil)
     }
     
@@ -113,12 +113,12 @@ class WebTitleView: BaseView {
         }
     }
     
-    dynamic var title: String? {
+    var title: String? {
         didSet {
             label.text = title
         }
     }
-    dynamic var label: UILabel!
+    var label: UILabel!
     
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -25,7 +25,7 @@ class PriceOptionView: HouseOptionView {
         tableView.register(PriceAndSubwayOptionCell.self, forCellReuseIdentifier: reuseIdentifier)
         items.asObservable().bind(to: tableView.rx.items(cellIdentifier: reuseIdentifier, cellType: PriceAndSubwayOptionCell.self)) { row, model, cell in
             cell.item = model
-        }.addDisposableTo(disposeBag)
+            }.disposed(by: disposeBag)
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -11,7 +11,7 @@ import UIKit
 extension UIViewController {
     
     //MARK: - 获取第一个window顶部的控制器
-    class dynamic func getCurrentController() -> UIViewController? {
+    class func getCurrentController() -> UIViewController? {
         
         guard let window = UIApplication.shared.windows.first else {
             return nil
@@ -20,7 +20,7 @@ extension UIViewController {
     }
     
     //MARK: - 获取最后一个window顶部的控制器
-    class dynamic func getNearestController() -> UIViewController? {
+    class func getNearestController() -> UIViewController? {
         
         for window in UIApplication.shared.windows.reversed() {
             if let vc = getCurrentControllerInWindow(window: window) {
@@ -31,7 +31,7 @@ extension UIViewController {
     }
     
     //MARK: - 获取指定window上顶部的控制器
-    class dynamic func getCurrentControllerInWindow(window: UIWindow) -> UIViewController? {
+    class func getCurrentControllerInWindow(window: UIWindow) -> UIViewController? {
         
         var tempView: UIView?
         

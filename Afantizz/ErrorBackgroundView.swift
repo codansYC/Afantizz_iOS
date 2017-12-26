@@ -28,7 +28,7 @@ class ErrorBackgroundView: UIView {
         }
     }
     
-    var buttonClickClosure: ((Void)->Void)?
+    var buttonClickClosure: (()->Void)?
     
     var refreshBtn: UIButton?
     var imgV: UIImageView!
@@ -70,7 +70,7 @@ class ErrorBackgroundView: UIView {
             case .noWifi:
                 self.showNoWifiUI()
             }
-        }.addDisposableTo(disposeBag)
+            }.disposed(by: disposeBag)
     }
     
     func showNoDataUI() {
@@ -114,7 +114,7 @@ class ErrorBackgroundView: UIView {
             refreshBtn?.contentEdgeInsets = UIEdgeInsetsMake(3, 10, 3, 10)
             refreshBtn?.rx.tap.bind { [unowned self] _ in
                 self.buttonClickClosure?()
-            }.addDisposableTo(disposeBag)
+            }.disposed(by: disposeBag)
         }
         
         addSubview(refreshBtn!)
@@ -125,7 +125,7 @@ class ErrorBackgroundView: UIView {
         })
     }
     
-    func show(view: UIView, style: ErrorBackgroundViewStyle,buttonClick: ((Void)->Void)? = nil) {
+    func show(view: UIView, style: ErrorBackgroundViewStyle,buttonClick: (()->Void)? = nil) {
         if superview == view {
             return
         }

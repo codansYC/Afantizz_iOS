@@ -62,7 +62,6 @@ class PagingController<T: HandyJSON>: TableController {
         footer?.setTitle("正在加载更多数据...", for: .refreshing)
         footer?.stateLabel.textColor = UIColor.hx596167
         footer?.stateLabel.font = UIFont.systemFont(ofSize: 14)
-        footer?.isAutomaticallyHidden = true
         tableView.mj_footer = footer
     }
     
@@ -94,13 +93,13 @@ class PagingController<T: HandyJSON>: TableController {
             if self.isShowLodingView {
                 self.isShowLodingView = false
             }
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
         
         //控制errorBackgroudView的UI
         
         errBgDisposeBag = DisposeBag()
         pagingVM.loadDataStatus.asObservable()
-            .shareReplay(1)
+            .share(replay: 1)
             .takeUntil(pagingVM.rx.deallocated)
             .bind { [unowned self] (status) in
             switch status {
@@ -114,6 +113,6 @@ class PagingController<T: HandyJSON>: TableController {
                 self.errorBackgroudView.errorStyle.value = .noError
                 self.errBgDisposeBag = nil
             }
-        }.addDisposableTo(errBgDisposeBag!)
+            }.disposed(by: errBgDisposeBag!)
     }
 }
