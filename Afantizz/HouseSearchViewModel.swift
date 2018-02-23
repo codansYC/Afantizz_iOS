@@ -14,7 +14,7 @@ class HouseSearchViewModel: BaseViewModel {
     
     var searchResult = Variable([House?]())
     
-    func validKeyword(_ keyword: String?) -> (Bool, String) {
+    func validKeyword(_ keyword: String?) -> (isValid: Bool, msg: String) {
         if keyword == nil || keyword == "" {
             return (false, "关键字不能为空")
         }
@@ -25,18 +25,12 @@ class HouseSearchViewModel: BaseViewModel {
     }
     
     func search(_ keyword: String) {
-        let currentVC = UIViewController.getCurrentController()
-        let params: [String: Any] = ["search_keyword": keyword]
-        Networker.request(url: ServerUrl.houseSearch, params: params, success: { (jsonStr) in
-            self.searchResult.value = [House].deserialize(from: jsonStr) ?? [House]()
-        }, error: { (errCode, errMsg) in
-            if let vc = currentVC {
-                HUDManager.show(message: errMsg, in: vc.view)
-            }
-        }, networkError: {
-            if let vc = currentVC {
-                HUDManager.show(message: BizConsts.networkPoorMsg, in: vc.view)
-            }
+        let params: [String: Any] = ["keyword": keyword]
+        [House].request(url: ServerUrl.houseSearch, params: params, success: { houseList in
+            self.requestError.value = nil
+            self.searchResult.value = houseList ?? []
+        }, error: { (err) in
+            self.requestError.value = err
         })
     }
 

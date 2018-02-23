@@ -16,7 +16,6 @@ class MyReleaseController: WebViewController, MyReleaseJsDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "我的发布"
-        
         jsContext = webView.value(forKeyPath: Str.jsContextKeyPath) as? JSContext
         jsContext?.setObject(self, forKeyedSubscript: "JSInteraction" as (NSCopying & NSObjectProtocol))
     }
@@ -26,9 +25,17 @@ class MyReleaseController: WebViewController, MyReleaseJsDelegate {
         self.toDetailVC(houseId)
     }
     
+    func edit(_ houseId: String) {
+        let urlStr = ServerUrl.releaseH5.toMobileWeb() + "?house_id=\(houseId)&token=\(Global.token ?? "")"
+        let editVC = ReleaseController(URLStr: urlStr)
+        editVC.title = "修改房源"
+        navigationController?.pushViewController(editVC, animated: true)
+    }
+    
 
 }
 
 @objc protocol MyReleaseJsDelegate: JSExport {
     func toDetailPage(_ houseId: String)
+    func edit(_ houseId: String)
 }

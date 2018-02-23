@@ -32,8 +32,6 @@ class ReleaseController: WebViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "发布"
-        
         let context = webView.value(forKeyPath: "documentView.webView.mainFrame.javaScriptContext") as? JSContext
         let m_model = JSInteraction()
         m_model.jsContext = context

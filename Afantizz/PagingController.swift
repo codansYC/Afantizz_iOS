@@ -8,71 +8,52 @@
 
 import UIKit
 import MJRefresh
-import HandyJSON
 import RxSwift
 import RxCocoa
 
-class PagingController<T: HandyJSON>: TableController {
+class PagingController<M, VM: PagingViewModel<M>>: ListController<M, VM> {
     
-    var pagingVM: PagingViewModel<T>? {
-        didSet{
-            setUpPagingVMEvent()
-        }
-    }
-    
-    var header: MJRefreshNormalHeader?
-    var footer: MJRefreshBackNormalFooter?
-    
-    var isAllowPullDown: Bool = true {
-        willSet{
-            if newValue != isAllowPullDown {
-                tableView.mj_header = newValue ? header : nil
-            }
-        }
-    }
+    var mj_footer: MJRefreshBackNormalFooter?
     
     var isAllowPullUp: Bool = true {
         willSet{
-            if newValue != isAllowPullDown {
-                tableView.mj_footer = newValue ? footer : nil
+            if newValue != isAllowPullUp {
+                tableView.mj_footer = newValue ? mj_footer : nil
             }
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        isShowLodingView = true
     }
     
     override func setUpTableView() {
         super.setUpTableView()
-        header = MJRefreshNormalHeader(refreshingBlock: { [unowned self] in
-            self.pagingVM?.pullDownRefresh()
-        })
-        header?.stateLabel.isHidden = true
-        tableView.mj_header = header
+        mj_header?.refreshingBlock = { [unowned self] in self.viewModel?.pullDownRefresh() }
         
-        footer = MJRefreshBackNormalFooter.init { [unowned self] in
-            self.pagingVM?.pullUpLoadMore()
+        mj_footer = MJRefreshBackNormalFooter.init { [unowned self] in
+            self.viewModel?.pullUpLoadMore()
         }
-        footer?.stateLabel.text = "上拉加载更多"
-        footer?.setTitle("—— 好,就到这儿了 ——", for: .noMoreData)
-        footer?.setTitle("上拉加载更多", for: .idle)
-        footer?.setTitle("松开立即加载", for: .pulling)
-        footer?.setTitle("正在加载更多数据...", for: .refreshing)
-        footer?.stateLabel.textColor = UIColor.hx596167
-        footer?.stateLabel.font = UIFont.systemFont(ofSize: 14)
-        tableView.mj_footer = footer
+        mj_footer?.stateLabel.text = "上拉加载更多"
+        mj_footer?.setTitle("—— 好,就到这儿了 ——", for: .noMoreData)
+        mj_footer?.setTitle("上拉加载更多", for: .idle)
+        mj_footer?.setTitle("松开立即加载", for: .pulling)
+        mj_footer?.setTitle("正在加载更多数据...", for: .refreshing)
+        mj_footer?.stateLabel.textColor = UIColor.hx596167
+        mj_footer?.stateLabel.font = UIFont.systemFont(ofSize: 14)
+        tableView.mj_footer = mj_footer
     }
     
-    func setUpPagingVMEvent() {
-        guard let pagingVM = pagingVM  else {
+    override func setUpViewModelBinding() {
+        super.setUpViewModelBinding()
+        guard let viewModel = viewModel  else {
             return
         }
         //控制loading页的显隐以及tableView的上下拉
-        pagingVM.loadDataStatus.asObservable()
-            .takeUntil(pagingVM.rx.deallocated)
+        viewModel.loadDataStatus.asObservable()
+            .takeUntil(viewModel.rx.deallocated)
             .bind(onNext: { [unowned self] (status) in
+                self.isAllowPullUp = true
             switch status {
             case .none:
                 return
@@ -83,35 +64,35 @@ class PagingController<T: HandyJSON>: TableController {
                 self.tableView.mj_footer?.endRefreshing()
             case .noData:
                 self.tableView.mj_footer?.endRefreshing()
+                self.isAllowPullUp = false
             case .noMore:
                 self.tableView.mj_footer?.endRefreshingWithNoMoreData()
-            case .error(_, let errMsg):
-                HUDManager.show(message: errMsg, in: self.view, autoHideDelay: 1)
+            case .error(let error):
+                self.show(error.msg)
                 self.tableView.mj_footer?.endRefreshing()
             }
             self.tableView.mj_header.endRefreshing()
             if self.isShowLodingView {
                 self.isShowLodingView = false
             }
-        }).disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
         
         //控制errorBackgroudView的UI
         
         errBgDisposeBag = DisposeBag()
-        pagingVM.loadDataStatus.asObservable()
+        viewModel.loadDataStatus.asObservable()
             .share(replay: 1)
-            .takeUntil(pagingVM.rx.deallocated)
+            .takeUntil(viewModel.rx.deallocated)
             .bind { [unowned self] (status) in
             switch status {
             case .none:
                 break
             case .noData:
-                self.errorBackgroudView.show(view: self.view, style: .noData)
-            case .error(let errCode, _) where errCode == BizConsts.networkPoorCode:
-                self.errorBackgroudView.show(view: self.view, style: .noWifi, buttonClick: pagingVM.pullDownRefresh)
+                self.errorBackgroudView.show(view: self.tableView, style: .noData)
+            case .error(let error) where error.code == BizConsts.networkPoorCode:
+                self.errorBackgroudView.show(view: self.tableView, style: .noWifi, buttonClick: viewModel.pullDownRefresh)
             default:
                 self.errorBackgroudView.errorStyle.value = .noError
-                self.errBgDisposeBag = nil
             }
             }.disposed(by: errBgDisposeBag!)
     }

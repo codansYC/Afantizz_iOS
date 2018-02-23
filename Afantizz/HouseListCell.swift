@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class HouseListCell: UITableViewCell {
     
@@ -16,7 +17,7 @@ class HouseListCell: UITableViewCell {
     let priceLabel = UILabel()
     let dateLabel = UILabel()
     let trafficLabel = UILabel()
-    let rentModeLabel = UILabel()
+    let rentModeLabel = PaddingLabel.init(UIEdgeInsets.init(top: 0, left: 2, bottom: 0, right: 2))
     let gprsIcon = UIImage(named: "icon-gprs")
     let gprsSign = UIView()
     let tagsV = UIView()
@@ -26,22 +27,18 @@ class HouseListCell: UITableViewCell {
         didSet{
             guard let house = house else {
                 return
-            } 
-            if !house.images.isEmpty {
-                let url = URL(string: ServerUrl.basicUrl + house.images[0])
-                imageV.sd_setImage(with: url)
             }
+            imageV.af.setImage(with: URL(string: house.image.wrapSafely))
             titleLabel.text = house.title
-            addressLabel.text = house.district + "-" + house.address
-            priceLabel.text = "¥" + house.price
-            dateLabel.text = house.release_date
+            addressLabel.text = house.district.wrapSafely + "-" + house.address.wrapSafely
+            priceLabel.text = "¥" + house.price.wrapSafely
+            dateLabel.text = house.date
             trafficLabel.text = house.traffic
-            rentModeLabel.text = house.rent_mode
-            
+            rentModeLabel.text = house.rentType?.description
             bottomV.snp.updateConstraints { (make) in
-                make.height.equalTo(house.traffic.isEmpty ? 10 : 30)
+                make.height.equalTo(house.traffic?.isEmpty == true ? 10 : 30)
             }
-            bottomV.isHidden = house.traffic.isEmpty
+            bottomV.isHidden = house.traffic?.isEmpty == true
             
             addTagsLabel(house: house)
         }
@@ -142,34 +139,27 @@ class HouseListCell: UITableViewCell {
     }
     
     func addTagsLabel(house: House) {
-        tagsV.subviews.forEach { (v) in
-            v.removeFromSuperview()
-        }
+        tagsV.subviews.forEach { $0.removeFromSuperview() }
         //房间结构(几室几厅)
-        if !house.style.isEmpty {
-            let stylePrefix = house.style.components(separatedBy: "厅")[0] + "厅"
-            if stylePrefix.count >= 4 {
-                let styleLabel = TagLabel()
-                styleLabel.text = stylePrefix
-                tagsV.addSubview(styleLabel)
-            }
+        if let roomNum = house.room_num, let hallNum = house.hall_num {
+            let styleLabel = TagLabel()
+            styleLabel.text = "\(roomNum)室\(hallNum)厅"
+            tagsV.addSubview(styleLabel)
         }
         //主卧或次卧
-        if house.rent_mode == "合租" {
+        if house.rentType == House.RentType.joint {
             let rentModeLabel = TagLabel()
-            rentModeLabel.text = String(house.style[house.style.index(house.style.endIndex, offsetBy: -2)..<house.style.endIndex])
+            rentModeLabel.text = house.rentType?.description
             tagsV.addSubview(rentModeLabel)
         }
-        //独立卫生间
-        if let facilities = house.facilities {
-            if facilities.contains("独立卫生间") {
-                let toiletLabel = TagLabel()
-                toiletLabel.text = "独卫"
-                tagsV.addSubview(toiletLabel)
-            }
+        //是否有独立卫生间
+        if house.is_toilet_single == true {
+            let toiletLabel = TagLabel()
+            toiletLabel.text = "独卫"
+            tagsV.addSubview(toiletLabel)
         }
         //转租优惠
-        if !house.benefit.isEmpty {
+        if house.is_benefit == true {
             let benefitLabel = TagLabel()
             benefitLabel.text = "转租优惠"
             benefitLabel.backgroundColor = UIColor.colorWithHex(hex: 0x34c86c, alpha: 0.2)
@@ -193,10 +183,10 @@ class HouseListCell: UITableViewCell {
     }
 }
 
-class TagLabel: UILabel {
+class TagLabel: PaddingLabel {
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init() {
+        super.init(UIEdgeInsets.init(top: 0, left: 2, bottom: 0, right: 2))
         backgroundColor = UIColor.colorWithRGBA(r: 89, g: 97, b: 103, a: 0.2)
         textColor = UIColor.colorWithRGB(r: 89, g: 97, b: 103)
         font = UIFont.systemFont(ofSize: 12)
@@ -205,4 +195,5 @@ class TagLabel: UILabel {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
 }

@@ -27,7 +27,7 @@ func debugAlert(items: Any...) {
         let desc = items.map({ (msg) -> String in
             return String(describing: msg)
         }).joined(separator: ",")
-        UIViewController.getCurrentController()?.show(message: desc)
+        (UIViewController.getCurrentController() as? BaseController)?.show(desc)
     #endif
 }
 

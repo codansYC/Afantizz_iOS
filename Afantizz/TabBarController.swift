@@ -23,10 +23,13 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     
     
     func addChildren() -> Void {
-        
-        addChild(HouseListController(), title: "房源", image: UIImage(named: "home"))
-        addChild(ReleaseController(), title: "发布", image: UIImage(named: "edit"))
-        addChild(MineController(), title: "我的", image: UIImage(named: "mine"))
+        let houseListVC = HouseListController()
+        let releaseVC = ReleaseController()
+        releaseVC.title = "发布房源"
+        let mineVC = MineController()
+        addChild(houseListVC, title: "房源", image: UIImage(named: "home"))
+        addChild(releaseVC, title: "发布", image: UIImage(named: "edit"))
+        addChild(mineVC, title: "我的", image: UIImage(named: "mine"))
     }
     
     func addChild(_ viewController: UIViewController, title: String, image: UIImage?) -> Void {
@@ -55,11 +58,10 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         let index = tabBarController.selectedIndex
         switch index {
         case 1:
-            
             guard let releaseVC = (viewController as? UINavigationController)?.topViewController as? ReleaseController else {
                 return
             }
-            let urlStr = ServerUrl.ReleaseH5.toMobileWeb() + "?token=" + (Global.token ?? "")
+            let urlStr = ServerUrl.releaseH5.toMobileWeb() + "?token=" + (Global.token ?? "")
             releaseVC.urlStr = urlStr
         default:
             break

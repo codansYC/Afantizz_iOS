@@ -10,6 +10,28 @@ import UIKit
 
 class PriceAndSubwayOptionCell: BaseTableViewCell {
     
+    var priceRange: PriceRange! {
+        didSet{
+            if priceRange == nil {
+                return
+            }
+            if let minPrice = priceRange.min_price,
+               let maxPrice = priceRange.max_price {
+                titleLabel.text = minPrice + "-" + maxPrice
+                return
+            }
+            if let minPrice = priceRange.min_price {
+                titleLabel.text = minPrice + "以上"
+            } else {
+                if let maxPrice = priceRange.max_price {
+                    titleLabel.text = maxPrice + "以下"
+                } else {
+                    titleLabel.text = Str.unlimited
+                }
+            }
+        }
+    }
+    
     var item: String = "" {
         didSet{
             titleLabel.text = item

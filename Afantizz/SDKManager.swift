@@ -7,15 +7,17 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
 
-class SDKManager: SlideView {
+struct SDKManager {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    static func configure(options: [UIApplicationLaunchOptionsKey: Any]?) {
+        // 键盘监听
+        IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true
+        IQKeyboardManager.sharedManager().enable = true
+        IQKeyboardManager.sharedManager().enableAutoToolbar = false
     }
-    */
+    
+
 
 }

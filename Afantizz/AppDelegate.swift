@@ -9,6 +9,9 @@
 import UIKit
 import IQKeyboardManagerSwift
 
+let isDev = false
+let isDebug = true
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -16,17 +19,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var tabBarVC: TabBarController?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-    
-        // 键盘监听
-        IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true
-        IQKeyboardManager.sharedManager().enable = true
-        IQKeyboardManager.sharedManager().enableAutoToolbar = false
-
-        window = UIWindow(frame: UIScreen.main.bounds)
-        tabBarVC = TabBarController()
-        window?.rootViewController = tabBarVC
-        window?.makeKeyAndVisible()
         
+        Global.syncTimestamp {
+            ConfigManager.obtainBaseConfig {
+                self.tabBarVC = TabBarController()
+                self.window?.rootViewController = self.tabBarVC
+            }
+        }
+        SDKManager.configure(options: launchOptions)
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = LaunchController()
+        window?.makeKeyAndVisible()
+        application.setStatusBarStyle(.lightContent, animated: false)
         return true
     }
 
@@ -51,7 +56,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
+    
+    func test() {
+        let params: [String: Any] = ["house_id": 3226712064,"token": "85008e2618deeb2a994324bb1aa4e36f"]
+        House.request(url: "http://devapp.afantizz.com/house/info", params: params, success: { (house) in
+            print("test()")
+           
+        })
+//        Networker.request(url: "http://devapp.afantizz.com/house/info", params: params, success: { (jsonStr) in
+//            let list = HouseInfo.decode(from: jsonStr)
+//            print("test-----")
+//            dump(list)
+//        }, error: nil, networkError: nil)
+    }
 
 }
+
 

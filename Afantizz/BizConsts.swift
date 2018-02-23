@@ -11,4 +11,5 @@ import UIKit
 struct BizConsts {
     static let networkPoorCode = -1009
     static let networkPoorMsg  = "网络异常"
+    static let networkError = AfantizzError(code: -1009, msg: "网络异常")
 }

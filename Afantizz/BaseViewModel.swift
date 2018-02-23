@@ -14,6 +14,7 @@ class BaseViewModel: NSObject {
     
     lazy var disposeBag: DisposeBag = DisposeBag()
     var loadDataStatus = Variable(LoadDataStatus.none)
+    var requestError: Variable<AfantizzError?> = Variable(nil)
     
 }
 

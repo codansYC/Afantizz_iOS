@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class HouseSearchController: TableController {
+class HouseSearchController: TableController<HouseSearchViewModel> {
 
     var searchV: CustomSearchView!
     
@@ -18,12 +18,11 @@ class HouseSearchController: TableController {
 
     var searchEmptyView: ErrorBackgroundView!
     
-    let viewModel = HouseSearchViewModel()
-    
     var isFirstAppear = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel = HouseSearchViewModel()
         setUpViews()
         setUpEvents()
     }
@@ -92,10 +91,11 @@ class HouseSearchController: TableController {
             searchV.searchBar.resignFirstResponder()
             let kw = searchV.searchBar.text
             let result = self.viewModel.validKeyword(kw)
-            if !result.0 {
-                HUDManager.show(message: result.1, in: self.view)
+            if !result.isValid {
+                self.show(result.msg)
                 return
             }
+            self.showLoading()
             self.viewModel.search(kw!)
         }
         
@@ -108,7 +108,7 @@ class HouseSearchController: TableController {
         }.disposed(by: disposeBag)
 
         tableView.rx.modelSelected(House.self).bind { (house) in
-            self.toDetailVC(house.house_id)
+            self.toDetailVC(house.house_id.wrapSafely)
             self.navigationController?.setNavigationBarHidden(false, animated: false)
             UIApplication.shared.setStatusBarStyle(.default, animated: true)
         }.disposed(by: disposeBag)

@@ -15,20 +15,17 @@ class LoginViewModel: BaseViewModel {
     
     func getCode(phone: String) -> Observable<Any> {
         return Observable.create({ (observer) -> Disposable in
-            let currentVC = UIViewController.getCurrentController()
             let params: [String: Any] = ["phone": phone]
             let hud = HUDManager.showLoading()
-            Networker.request(url: ServerUrl.GetCaptcha, params: params, success: { (jsonStr) in
+            Networker.request(url: ServerUrl.getCaptcha, params: params, success: { (jsonStr) in
                 hud?.hide(animated: true)
                 observer.onNext(true)
                 observer.onCompleted()
-            }, error: { [weak currentVC] (errCode, errMsg) in
+            }, error: { (err) in
                 hud?.hide(animated: true)
                 observer.onCompleted()
-                currentVC?.show(message: errMsg)
-            }, networkError: { [weak currentVC] in
+            }, networkError: {
                 hud?.hide(animated: true)
-                currentVC?.showNetWorkError()
                 observer.onCompleted()
             })
             return Disposables.create()
@@ -36,30 +33,20 @@ class LoginViewModel: BaseViewModel {
         
     }
     
-    func login(phone: String, code: String) -> Observable<Any> {
-        return Observable.create({ (observer) -> Disposable in
-            let currentVC = UIViewController.getCurrentController()
-            let params: [String: Any] = ["phone": phone,
-                                         "captcha": code,
-                                         "platform": "iOS"]
-            let hud = HUDManager.showLoading(message: "登录中")
-            Networker.request(url: ServerUrl.Login, params: params, success: { (jsonStr) in
-                Global.user = User.deserialize(from: jsonStr)
-                UserDefaults.saveToken(Global.user?.token)
-                hud?.hide(animated: true)
-                observer.onNext(true)
-                observer.onCompleted()
-            }, error: { [weak currentVC] (errCode, errMsg) in
-                hud?.hide(animated: true)
-                observer.onCompleted()
-                currentVC?.show(message: errMsg)
-                }, networkError: { [weak currentVC] in
-                    hud?.hide(animated: true)
-                    currentVC?.showNetWorkError()
-                    observer.onCompleted()
-            })
-            return Disposables.create()
+    func login(phone: String, code: String, success: @escaping (()->Void)) {
+        let params: [String: Any] = ["phone": phone,
+                                     "captcha": code,
+                                     "platform": "iOS"]
+        Networker.request(url: ServerUrl.Login, params: params, success: { (jsonStr) in
+            Global.user = User.parase(from: jsonStr)
+            UserDefaults.saveToken(Global.user?.token)
+            success()
+        }, error: { (err) in
+            self.requestError.value = err
+            }, networkError: {
+               self.requestError.value = BizConsts.networkError
         })
+        
     }
     
     func countDown() -> Observable<String> {

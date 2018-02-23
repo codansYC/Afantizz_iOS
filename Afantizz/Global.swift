@@ -7,14 +7,19 @@
 //
 
 import UIKit
+import SwiftyJSON
 
-class Global {
+typealias EmptyClosure = ()->Void
+
+struct Global {
 
     static let appDelegate = UIApplication.shared.delegate as! AppDelegate
     static let ScreenWidth = UIScreen.main.bounds.width
     static let ScreenHeight = UIScreen.main.bounds.height
     static var memoryToken: String?
     static var user: User?
+    
+    static var timestamp = Timestamp()
     
     static var isLogin: Bool {
         return token != nil
@@ -36,7 +41,7 @@ class Global {
         return nil
     }
     
-    class func validateMobile(_ mobile: String?) -> Bool {
+    static func validateMobile(_ mobile: String?) -> Bool {
         guard let mobile = mobile else {
             return false
         }
@@ -46,7 +51,7 @@ class Global {
         return result
     }
     
-    class func validateCaptcha(_ number: String?) -> Bool {
+    static func validateCaptcha(_ number: String?) -> Bool {
         guard let number = number else {
             return false
         }
@@ -56,18 +61,42 @@ class Global {
         return result
     }
     
-    class func toLoginPage() {
+    static func toLoginPage() {
         let naviVC = NavigationController(rootViewController: LoginController())
         UIViewController.getCurrentController()?.present(naviVC, animated: true, completion: nil)
     }
     
-    class func clearUserInfo() {
+    static func clearUserInfo() {
         Global.user = nil
         Global.memoryToken = nil
         UserDefaults.removeToken()
     }
 
+    static func random(_ lower: Int = 0, _ upper: Int = 100) -> Int {
+        return lower + Int(arc4random_uniform(UInt32(upper - lower + 1)))
+    }
+    
+    /*
+    * 同步时间戳
+    */
+    static func syncTimestamp(_ completion: EmptyClosure? = nil) {
+        Global.timestamp.reqTime = Int(Date().timeIntervalSince1970)
+        Networker.request(url: ServerUrl.timestamp, params: nil, success: { (jsonStr) in
+            guard let jsonStr = jsonStr, let timestamp = Int(JSON.init(parseJSON: jsonStr)["timestamp"].stringValue) else {
+                completion?()
+                return
+            }
+            Global.timestamp.respTime = Int(Date().timeIntervalSince1970)
+            Global.timestamp.serverTime = timestamp
+            completion?()
+        }, error: { (err) in
+            completion?()
+        }) {
+            completion?()
+        }
+    }
 }
+
 
 
 

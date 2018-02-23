@@ -9,11 +9,11 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import MBProgressHUD
 
-class BaseController: UIViewController {
+class BaseController<VM: BaseViewModel>: UIViewController {
     
     lazy var disposeBag: DisposeBag = DisposeBag()
-    
     // loading页
     let loadingView = LoadingBackgroundView()
     var isShowLodingView = false {
@@ -24,12 +24,23 @@ class BaseController: UIViewController {
     
     // error页
     let errorBackgroudView = ErrorBackgroundView()
-    
     var errBgDisposeBag: DisposeBag?
+    
+    // viewModel
+    var viewModel: VM! {
+        didSet{
+            setUpViewModelBinding()
+        }
+    }
+    
+    // 界面上的hud
+    var hud: CMBProgressHUD?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
+        navigationController?.setBarBackgroundColor(UIColor.navBarColor)
+        navigationController?.navigationBar.shadowImage = UIImage()
     }
     
     func showLoadingView(show: Bool) {
@@ -49,8 +60,64 @@ class BaseController: UIViewController {
         }
     }
     
+    func setUpViewModelBinding() {
+        bindRequestError()
+    }
+    
+    func bindRequestError() {
+        viewModel.requestError.asObservable().takeUntil(viewModel.rx.deallocating).bind { (error) in
+            guard let error = error else {
+                self.hud?.hide(animated: true)
+                return
+            }
+            self.resetHud(mode: .text, text: error.msg)
+            self.hideHud(afterDelay: 1)
+        }.disposed(by: disposeBag)
+    }
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
     
 }
+
+extension BaseController {
+    func showLoading(_ msg: String? = nil) {
+        self.hud = HUDManager.showLoading(message: msg)
+    }
+    
+    func show(_ message: String, autoHideDelay: TimeInterval = 1, completion: (()->Void)? = nil) {
+        self.hud = HUDManager.show(message: message, in: view, autoHideDelay: autoHideDelay, completion: completion)
+    }
+    
+    func showNetWorkError() {
+        self.hud = HUDManager.showNetworkError(in: view)
+    }
+    
+    func hideHud(animated: Bool = true, afterDelay: TimeInterval = 0, completion: (()->Void)? = nil) {
+        self.hud?.hide(animated: animated, afterDelay: afterDelay)
+        if let _completion = completion {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+afterDelay, execute: _completion)
+        }
+    }
+    
+    func resetHud(mode: MBProgressHUDMode, text: String, detail: String? = nil) {
+        guard let _hud = hud else {
+            return
+        }
+    
+        _hud.mode = mode
+        _hud.label.text = text
+        if let _detail = detail {
+            _hud.detailsLabel.text = _detail
+        }
+        
+        let anim = CATransition()
+        anim.type = kCATransitionFade
+        anim.duration = 0.2
+        _hud.layer.add(anim, forKey: nil)
+        
+    }
+    
+}
+

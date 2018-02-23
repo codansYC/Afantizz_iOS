@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class HouseListController: PagingController<House>, UITableViewDelegate {
+class HouseListController: PagingController<House, HouseListViewModel>, UITableViewDelegate {
     
     let reuseIdentifier = "HouseListCell"
     let filterV = FilterView()
@@ -18,25 +18,38 @@ class HouseListController: PagingController<House>, UITableViewDelegate {
     let priceV = PriceOptionView()
     let styleV = StyleOptionView()
     let subwayV = SubwayOptionView()
-    var filterState = FilterViewState.none
+    var filterState = FilterViewState.none {
+        didSet{
+            self.navigationItem.rightBarButtonItem?.isEnabled = filterState == .none
+        }
+    }
     var filterViews = [HouseOptionView]()
-    let houseListVM = HouseListViewModel()
     let sortSlideV = SortSlideView()
+    let errBgView = ErrorBackgroundView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel = HouseListViewModel()
         navigationItem.title = "所有房源"
         setUpViews()
         
-        pagingVM = houseListVM
-        houseListVM.requestData()
+        viewModel.requestData()
                 
-        houseListVM.listSource.asObservable().bind(to: tableView.rx.items(cellIdentifier: reuseIdentifier, cellType: HouseListCell.self)) { row, model, cell in
+        viewModel.listSource.asObservable().bind(to: tableView.rx.items(cellIdentifier: reuseIdentifier, cellType: HouseListCell.self)) { row, model, cell in
             cell.house = model
+        }.disposed(by: disposeBag)
+        
+        viewModel.listSource.asObservable().bind { (houseList) in
+            if houseList.isEmpty {
+                self.tableView.addSubview(self.errBgView)
+            } else {
+                self.errBgView.removeFromSuperview()
+            }
         }.disposed(by: disposeBag)
         
         setUpEvents()
         filterViews = [districtV, priceV, styleV, subwayV]
+        
     }
     
     func setUpViews() {
@@ -77,11 +90,13 @@ class HouseListController: PagingController<House>, UITableViewDelegate {
             let indexPath = IndexPath(item: 0, section: 0)
             self.districtV.collectionV.selectItem(at: indexPath, animated: false, scrollPosition: .centeredHorizontally)
             self.priceV.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
-            self.styleV.firstTableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
-            self.styleV.secondTableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+            self.styleV.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
             self.subwayV.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
         }
         view.addSubview(sortSlideV)
+        
+        errorBackgroudView.isHidden = true
+        errBgView.frame = CGRect.init(x: 0, y: 95, width: view.bounds.width, height: view.bounds.height-95-(navigationController?.navigationBar.bounds.height ?? 0))
     }
     
     override func setUpTableView() {
@@ -94,7 +109,7 @@ class HouseListController: PagingController<House>, UITableViewDelegate {
         tableView.delegate = self
         
         tableView.rx.modelSelected(House.self).bind { [unowned self] (house) in
-            self.toDetailVC(house.house_id)
+            self.toDetailVC(house.house_id.wrapSafely)
         }.disposed(by: disposeBag)
     }
     
@@ -102,6 +117,9 @@ class HouseListController: PagingController<House>, UITableViewDelegate {
         
         filterV.collectionV.rx.itemSelected.bind { [unowned self] indexPath in
             self.tableView.setContentOffset(CGPoint(x: 0, y: 50), animated: false)
+            self.tableView.snp.makeConstraints({ (make) in
+                make
+            })
             if indexPath.row == self.filterState.rawValue {
                 self.filterViews[indexPath.row].removeFromSuperview()
                 return
@@ -118,31 +136,20 @@ class HouseListController: PagingController<House>, UITableViewDelegate {
         
         NotificationCenter.default.rx.notification(Notification.Name.FilterViewDidRemoved).bind { [unowned self] noti in
             self.filterState = .none
-            self.adjustFilterUI()
+            self.filterV.items.value = self.viewModel.filterCategories
         }.disposed(by: disposeBag)
         
-        districtV.collectionV.rx.modelSelected(String.self).asObservable().bind(onNext: { [unowned self] (district) in
-            self.refreshListWithFilter()
-        }).disposed(by: disposeBag)
-        priceV.tableView.rx.modelSelected(String.self).asObservable().bind(onNext: { [unowned self](price) in
-            self.refreshListWithFilter()
-        }).disposed(by: disposeBag)
-        styleV.firstTableView.rx.modelSelected(String.self).asObservable().bind(onNext: { [unowned self] (rentMode) in
-            if rentMode == Str.unlimited || rentMode == "公寓" {
-                self.refreshListWithFilter()
-            }
-        }).disposed(by: disposeBag)
-        styleV.secondTableView.rx.modelSelected(String.self).asObservable().bind(onNext: { [unowned self] (style) in
-            self.refreshListWithFilter()
-        }).disposed(by: disposeBag)
-        subwayV.tableView.rx.modelSelected(String.self).asObservable().bind(onNext: { (subway) in
-            self.refreshListWithFilter()
-        }).disposed(by: disposeBag)
+        Observable.merge(districtV.collectionV.rx.itemSelected.asObservable(),
+                         priceV.tableView.rx.itemSelected.asObservable(),
+                         styleV.tableView.rx.itemSelected.asObservable(),
+                         subwayV.tableView.rx.itemSelected.asObservable()).bind { [unowned self] (_) in
+                            self.refreshListWithFilter()
+        }.disposed(by: disposeBag)
         
-        sortSlideV.tableView.rx.modelSelected(String.self).bind { [unowned self] (item) in
+        sortSlideV.tableView.rx.itemSelected.bind { [unowned self] indexPath in
             self.sortSlideV.dismiss()
-            self.houseListVM.sort = item
-            self.houseListVM.pullDownRefresh()
+            self.viewModel.sortType = HouseListViewModel.SortType(rawValue: indexPath.row)
+            self.viewModel.pullDownRefresh()
         }.disposed(by: disposeBag)
     }
     
@@ -151,41 +158,34 @@ class HouseListController: PagingController<House>, UITableViewDelegate {
     }
     
     func refreshListWithFilter() {
-        let districIndex = districtV.collectionV.indexPathsForSelectedItems?.first?.row ?? 0
-        houseListVM.district = districtV.items.value[districIndex]
-        let priceIndex = priceV.tableView.indexPathForSelectedRow?.row ?? 0
-        houseListVM.price = priceV.items.value[priceIndex]
-        let rentModeIndex = styleV.firstTableView.indexPathForSelectedRow?.row ?? 0
-        houseListVM.rentMode = styleV.items1.value[rentModeIndex]
-        if let styleIndex = styleV.secondTableView.indexPathForSelectedRow?.row {
-            houseListVM.style = styleV.items2.value[styleIndex]
+        let districtIndex = districtV.collectionV.indexPathsForSelectedItems?.first?.row ?? 0
+        if districtIndex == 0 {
+            viewModel.filterDistrict = nil
         } else {
-            houseListVM.style = Str.unlimited
+            viewModel.filterDistrict = districtV.districts.value[districtIndex]
+        }
+        let priceIndex = priceV.tableView.indexPathForSelectedRow?.row ?? 0
+        if priceIndex == 0 {
+            viewModel.filterPriceRange = nil
+        } else {
+            viewModel.filterPriceRange = priceV.priceRanges.value[priceIndex]
+        }
+        let rentModeIndex = styleV.tableView.indexPathForSelectedRow?.row ?? 0
+        if rentModeIndex == 0 {
+            viewModel.filterRentType = nil
+        } else {
+            viewModel.filterRentType = House.RentType(rawValue: rentModeIndex)
         }
         let subwayIndex = subwayV.tableView.indexPathForSelectedRow?.row ?? 0
-        houseListVM.subway = subwayV.items.value[subwayIndex]
+        if subwayIndex == 0 {
+            viewModel.filterSubway = nil
+        } else {
+            viewModel.filterSubway = subwayV.subways.value[subwayIndex]
+        }
         filterViews.forEach { (v) in
             v.removeFromSuperview()
         }
-        houseListVM.pullDownRefresh()
-        
-    }
-    
-    func adjustFilterUI() {
-        var filterVStyle = "户型"
-        if houseListVM.rentMode != Str.unlimited {
-            filterVStyle = houseListVM.rentMode
-            if houseListVM.rentMode != "公寓" && houseListVM.style != Str.unlimited {
-                filterVStyle += houseListVM.style
-            }
-        }
-        filterV.items.value = [houseListVM.district == Str.unlimited ? "区域" : houseListVM.district,
-                               houseListVM.price == Str.unlimited ? "租金" : houseListVM.price,
-                               filterVStyle,
-                               houseListVM.subway == Str.unlimited ? "地铁" : houseListVM.subway]
-        styleV.firstTableView.selectRow(at: IndexPath.init(row: styleV.items1.value.index(of: houseListVM.rentMode) ?? 0, section: 0), animated: false, scrollPosition: .none)
-        styleV.showSecondTableView(show: houseListVM.rentMode != Str.unlimited && houseListVM.rentMode != "公寓")
-        styleV.secondTableView.selectRow(at: IndexPath.init(row: styleV.items2.value.index(of: houseListVM.style) ?? 0, section: 0), animated: false, scrollPosition: .none)
+        viewModel.pullDownRefresh()
     }
 }
 

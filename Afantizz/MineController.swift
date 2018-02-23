@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class MineController: TableController, UITableViewDelegate, UITableViewDataSource {
+class MineController: TableController<MineViewModel>, UITableViewDelegate, UITableViewDataSource {
     
     let reuseIdentifier = "cell"
     let sectionH: CGFloat = 10
@@ -22,17 +22,16 @@ class MineController: TableController, UITableViewDelegate, UITableViewDataSourc
         super.viewDidLoad()
         setUpViews()
         setUpEvents()
-        
+        navigationController?.setBarBackgroundColor(UIColor.clear)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: false)
+        navigationController?.setBarBackgroundColor(UIColor.clear)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -138,6 +137,7 @@ class MineController: TableController, UITableViewDelegate, UITableViewDataSourc
         default:
             break
         }
+//        navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

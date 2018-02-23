@@ -129,12 +129,9 @@ class ErrorBackgroundView: UIView {
         if superview == view {
             return
         }
-        
+        removeFromSuperview()
         view.addSubview(self)
-        self.snp.makeConstraints { (make) in
-            make.edges.equalTo(view)
-        }
-        
+        frame = CGRect.init(origin: .zero, size: view.bounds.size)
         errorStyle.value = style
 
         buttonClickClosure = buttonClick

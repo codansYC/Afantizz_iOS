@@ -12,21 +12,27 @@ import MBProgressHUD
 class HUDManager {
     
     @discardableResult
-    static func show(message: String, in view: UIView, autoHideDelay: TimeInterval = 1) -> MBProgressHUD {
+    static func show(message: String, in view: UIView, autoHideDelay: TimeInterval = 1, completion: (()->Void)? = nil) -> CMBProgressHUD {
         let hud = CMBProgressHUD.showAdded(to: view, animated: true)
         hud.label.text = message
         hud.mode = .text
         hud.hide(animated: true, afterDelay: autoHideDelay)
+        
+        if let _completion = completion {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+autoHideDelay) {
+                _completion()
+            }
+        }
         return hud
     }
     
     @discardableResult
-    static func showNetworkError(in view: UIView) -> MBProgressHUD {
+    static func showNetworkError(in view: UIView) -> CMBProgressHUD {
         return show(message: BizConsts.networkPoorMsg, in: view)
     }
     
     @discardableResult
-    static func showLoading(message: String = "") -> CMBProgressHUD? {
+    static func showLoading(message: String? = nil) -> CMBProgressHUD? {
         guard let view = UIViewController.getCurrentController()?.view else {
             return nil
         }

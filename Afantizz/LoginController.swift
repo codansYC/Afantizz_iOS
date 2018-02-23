@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class LoginController: BaseController {
+class LoginController: BaseController<LoginViewModel> {
 
     var phoneField: UITextField!
     var codeField: UITextField!
@@ -18,10 +18,9 @@ class LoginController: BaseController {
     var loginBtn: UIButton!
     var closeItem: UIBarButtonItem!
     
-    let viewModel = LoginViewModel()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel = LoginViewModel()
         title = "登录"
         setUpViews()
         setUpEvent()
@@ -31,6 +30,7 @@ class LoginController: BaseController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"quit")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(close))
         phoneField = UITextField()
         phoneField.placeholder = "请输入手机号"
+        phoneField.clearButtonMode = .whileEditing
         view.addSubview(phoneField)
         phoneField.snp.makeConstraints { (make) in
             make.top.equalTo(120)
@@ -50,6 +50,7 @@ class LoginController: BaseController {
         
         codeField = UITextField()
         codeField.placeholder = "请输入验证码"
+        codeField.clearButtonMode = .whileEditing
         view.addSubview(codeField)
         codeField.snp.makeConstraints { (make) in
             make.top.equalTo(line1.snp.bottom).offset(35)
@@ -108,7 +109,7 @@ class LoginController: BaseController {
         sendCodeBtn.rx.tap.bind { [unowned self] _ in
             let phone = self.phoneField.text
             if !Global.validateMobile(phone) {
-                self.show(message: "手机号不正确")
+                self.show("手机号不正确")
                 return
             }
             self.viewModel.getCode(phone: phone!).bind(onNext: { [weak self] (_) in
@@ -129,16 +130,20 @@ class LoginController: BaseController {
             let phone = self.phoneField.text
             let code = self.codeField.text
             if !Global.validateMobile(phone) {
-                self.show(message: "手机号不正确")
+                self.show("手机号不正确")
                 return
             }
             if !Global.validateCaptcha(code) {
-                self.show(message: "验证码不正确")
+                self.show("验证码不正确")
                 return
             }
-            self.viewModel.login(phone: phone!, code: code!).bind(onNext: { [weak self] _ in
-                self?.navigationController?.dismiss(animated: true, completion: nil)
-            }).disposed(by: self.disposeBag)
+            self.showLoading("登录中...")
+            self.viewModel.login(phone: phone!, code: code!) { [weak self] in
+                self?.resetHud(mode: .text, text: "登录成功")
+                self?.hideHud(afterDelay: 1) {
+                    self?.navigationController?.dismiss(animated: true, completion: nil)
+                }
+            }
         }.disposed(by: disposeBag)
     }
     

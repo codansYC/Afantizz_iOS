@@ -15,7 +15,7 @@ class MyCollectionController: WebViewController, MyCollectionJsDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        title = "我的收藏"
         jsContext = webView.value(forKeyPath: Str.jsContextKeyPath) as? JSContext
         jsContext?.setObject(self, forKeyedSubscript: "JSInteraction" as (NSCopying & NSObjectProtocol))
 

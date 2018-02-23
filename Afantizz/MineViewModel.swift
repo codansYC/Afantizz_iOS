@@ -22,13 +22,13 @@ class MineViewModel: BaseViewModel {
         }
         loginState.value = true
         let params: [String: Any] = ["token": token]
-        Networker.request(url: ServerUrl.userInfo, params: params, success: { [unowned self] (jsonStr) in
-            Global.user = User.deserialize(from: jsonStr)
+        User.request(url: ServerUrl.userInfo, params: params, success: { (user) in
+            Global.user = user
             self.loginState.value = true
-        }, error: { [unowned self] (errCode, errMsg) in
-            self.mineVC?.show(message: errMsg)
-        }) { [unowned self] in
-            self.mineVC?.showNetWorkError()
+        }, error: { [weak self] (err) in
+            self?.requestError.value = err
+        }) { [weak self] in
+            self?.requestError.value = AfantizzError.networkError
         }
     }
     

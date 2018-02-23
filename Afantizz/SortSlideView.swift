@@ -12,7 +12,7 @@ import RxSwift
 class SortSlideView: SlideView {
 
     let tableView = UITableView(frame: CGRect.zero, style: .plain)
-    let items = Variable(["最新","面积","价格","入住时间"])
+    let items = Variable(HouseListViewModel.sortTypeArr)
     
     override init() {
         super.init()

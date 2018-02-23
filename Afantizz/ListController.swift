@@ -8,42 +8,35 @@
 
 import UIKit
 import MJRefresh
+import RxSwift
 
-class ListController: TableController {
+class ListController<M, VM: ListViewModel<M>>: TableController<VM> {
     
+    var mj_header: MJRefreshNormalHeader?
     
-    var listVM: ListViewModel?
+    var isAllowPullDown: Bool = true {
+        willSet{
+            if newValue != isAllowPullDown {
+                tableView.mj_header = newValue ? mj_header : nil
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpTableView()
+        isShowLodingView = true
     }
     
     override func setUpTableView() {
-        tableView = UITableView(frame: CGRect.zero, style: .plain)
-        view.addSubview(tableView)
-        tableView.snp.makeConstraints { (make) in
-            make.edges.equalTo(view)
-        }
-        let header = MJRefreshNormalHeader(refreshingBlock: { [unowned self] in
-            self.loadNewData()
+        super.setUpTableView()
+        
+        mj_header = MJRefreshNormalHeader(refreshingBlock: { [unowned self] in
+            self.viewModel?.pullDownRefresh()
         })
-        header?.stateLabel.isHidden = true
-        
-        tableView.mj_header = header
+        mj_header?.stateLabel.isHidden = true
+        tableView.mj_header = mj_header
     }
+
     
-    func loadNewData() {
-        
-    }
-
 }
-
-//MARK: - 与ListController 对应
-class ListViewModel: BaseViewModel {
-    func loadNewData() {
-        
-    }
-}
-
 

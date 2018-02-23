@@ -11,6 +11,7 @@ target 'Afantizz' do
     pod 'RxSwift',    '~> 4.0.0'    #响应式编程
     pod 'RxCocoa',    '~> 4.0.0'
     pod 'SDWebImage', '~>4.2.2'     #网络图片处理
+    pod 'Kingfisher', '~> 4.5.0'    #网络图片处理
     pod 'IQKeyboardManagerSwift', '~> 5.0.7' #自适应键盘高度
     pod 'FCUUID', '~> 1.3.1' #uuid
     pod 'MJRefresh' #刷新
@@ -31,5 +32,7 @@ target 'Afantizz' do
     pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
     pod 'HandyJSON', '~> 4.0.0-beta.1' #数据解析
     pod 'NJKWebViewProgress' # Web视图进度条
+    pod 'Reveal-SDK', '~> 4', :configurations => ['Debug'] # reveal
+    pod 'KMNavigationBarTransition' # 导航栏
 
 end

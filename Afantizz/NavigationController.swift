@@ -15,9 +15,16 @@ class NavigationController: UINavigationController {
 
         navigationBar.barTintColor = UIColor.navBarColor
         navigationBar.titleTextAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 17), NSAttributedStringKey.foregroundColor: UIColor.white]
-        UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffsetMake(0, -100), for: .default)
         navigationBar.tintColor = UIColor.white
-        navigationBar.isTranslucent = false
+        navigationBar.backIndicatorImage = UIImage(named: "back")
+        navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "back")
     }
     
+}
+
+
+extension UINavigationController {
+    func setBarBackgroundColor(_ color: UIColor) {
+        navigationBar.setBackgroundImage(UIImage.imageWithColor(color), for: .default)
+    }
 }

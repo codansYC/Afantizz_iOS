@@ -10,9 +10,9 @@ import UIKit
 
 class DistrictOptionCell: UICollectionViewCell {
     
-    var item: String = "" {
+    var district: District! {
         didSet{
-            titleLabel.text = item
+            titleLabel.text = district?.district_name
         }
     }
 

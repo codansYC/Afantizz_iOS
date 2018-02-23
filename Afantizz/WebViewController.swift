@@ -9,7 +9,7 @@
 import UIKit
 import NJKWebViewProgress
 
-class WebViewController: BaseController, NJKWebViewProgressDelegate, UIWebViewDelegate {
+class WebViewController: BaseController<BaseViewModel>, NJKWebViewProgressDelegate, UIWebViewDelegate {
     
     var isModal: Bool?
     var url: URL!

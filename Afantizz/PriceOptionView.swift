@@ -14,17 +14,20 @@ class PriceOptionView: HouseOptionView {
     
     let reuseIdentifier = "cell"
     var tableView: BaseTableView!
-    var items = Variable(["不限", "1000", "1000~1500", "1500~2000", "2000~2500", "2500~3000", "3000~4000", "4000~5000", "5000以上"])
+    lazy var priceRanges: Variable<[PriceRange]> = {
+        let priceRangeArr = [PriceRange()] + (ConfigManager.baseConfig?.price_range_arr ?? [PriceRange]())
+        return Variable(priceRangeArr)
+    }()
     
     override init() {
         super.init()
-        let rect = CGRect(x: 0, y: 0, width: bounds.width, height: min(350, 44*CGFloat(items.value.count)+20))
+        let rect = CGRect(x: 0, y: 0, width: bounds.width, height: min(350, 44*CGFloat(priceRanges.value.count)+20))
         tableView = BaseTableView(frame: rect, style: .plain)
         addSubview(tableView)
         tableView.contentInset = UIEdgeInsetsMake(10, 0, 10, 0)
         tableView.register(PriceAndSubwayOptionCell.self, forCellReuseIdentifier: reuseIdentifier)
-        items.asObservable().bind(to: tableView.rx.items(cellIdentifier: reuseIdentifier, cellType: PriceAndSubwayOptionCell.self)) { row, model, cell in
-            cell.item = model
+        priceRanges.asObservable().bind(to: tableView.rx.items(cellIdentifier: reuseIdentifier, cellType: PriceAndSubwayOptionCell.self)) { row, model, cell in
+            cell.priceRange = model
             }.disposed(by: disposeBag)
     }
     

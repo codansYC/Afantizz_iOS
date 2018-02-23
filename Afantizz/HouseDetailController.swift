@@ -31,10 +31,11 @@ class HouseDetailController: WebViewController {
         let context = webView.value(forKeyPath: "documentView.webView.mainFrame.javaScriptContext") as? JSContext
         let m_model = JSInteraction()
         m_model.jsContext = context
-        m_model.complainPageUrlStr = ServerUrl.ComplainH5(houseId: houseId)
+        m_model.complainPageUrlStr = ServerUrl.complainH5(houseId: houseId)
         self.jsContext = context
         self.jsContext?.setObject(m_model, forKeyedSubscript: "JSInteraction" as (NSCopying & NSObjectProtocol))
+        
+        webView.dataDetectorTypes = .phoneNumber
     }
-
 
 }

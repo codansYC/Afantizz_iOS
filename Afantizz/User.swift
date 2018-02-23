@@ -9,11 +9,13 @@
 import UIKit
 import HandyJSON
 
-class User: HandyJSON {
+class User: BaseModel {
     
     var phone = ""
     var token = ""
     
-    required init() {}
+    required init() {
+        
+    }
 
 }

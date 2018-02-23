@@ -11,26 +11,11 @@ import HandyJSON
 import RxSwift
 import RxCocoa
 
-class PagingViewModel<T:HandyJSON>: BaseViewModel {
+class PagingViewModel<T: BaseModel>: ListViewModel<T> {
     
     var currentPage = 1
-    var pullUrl = ""
-    /** 除分页外的所有参数 */
-    var params = [String : Any]()
-    var listSource = Variable([T?]())
     
-    init(pullUrl: String) {
-        super.init()
-        self.pullUrl = pullUrl
-    }
-    
-    init(pullUrl: String, params: [String : Any]) {
-        super.init()
-        self.pullUrl = pullUrl
-        self.params = params
-    }
-    
-    func pullDownRefresh() {
+    override func pullDownRefresh() {
         currentPage = 1
         requestData()
     }
@@ -43,18 +28,17 @@ class PagingViewModel<T:HandyJSON>: BaseViewModel {
     func requestData() {
         willSendRequest()
         params["page"] = self.currentPage
-        Networker.request(url: pullUrl, params: params, success: { [weak self] (jsonStr) in
-            let newData = [T].deserialize(from: jsonStr)
-            self?.handleNewData(data: newData)
-            }, error: { [weak self] (errCode, errMsg) in
-                guard let this = self else { return }
-                this.loadDataStatus.value = .error(errCode: errCode, errMsg: errMsg)
-                this.currentPage = max(this.currentPage-1, 1)
+        [T].request(url: pullUrl, params: params, success: { [weak self] (obj) in
+            self?.handleNewData(data: obj)
+        }, error: { [weak self] (err) in
+            guard let this = self else { return }
+            this.loadDataStatus.value = .error(err)
+            this.currentPage = max(this.currentPage-1, 1)
             }, networkError: { [weak self] in
                 guard let this = self else { return }
-                this.loadDataStatus.value = .error(errCode: BizConsts.networkPoorCode, errMsg: BizConsts.networkPoorMsg)
+                this.loadDataStatus.value = .error(AfantizzError(code: BizConsts.networkPoorCode, msg: BizConsts.networkPoorMsg))
                 this.currentPage = max(this.currentPage-1, 1)
-            })
+        })
         didSendRequest()
     }
     
@@ -72,19 +56,8 @@ class PagingViewModel<T:HandyJSON>: BaseViewModel {
                 loadDataStatus.value = .noMore
             }
         }
-        
         listSource.value += (data ?? [T?]())
     }
-    
-    func willSendRequest() {
-        
-    }
-    
-    func didSendRequest() {
-        
-    }
-   
-
 }
 
 // 加载数据的状态
@@ -94,5 +67,5 @@ enum LoadDataStatus {
     case pullDownDone
     case pullUpDone
     case noMore
-    case error(errCode: Int, errMsg: String)
+    case error(AfantizzError)
 }

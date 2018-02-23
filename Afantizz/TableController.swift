@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TableController: BaseController {
+class TableController<VM: BaseViewModel>: BaseController<VM> {
 
     var tableView: UITableView!
     
@@ -19,6 +19,7 @@ class TableController: BaseController {
     
     func setUpTableView() {
         tableView = UITableView(frame: CGRect.zero, style: .plain)
+        tableView.showsVerticalScrollIndicator = false
         tableView.separatorStyle = .none
         automaticallyAdjustsScrollViewInsets = false
         view.addSubview(tableView)
