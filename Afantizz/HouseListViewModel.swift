@@ -19,7 +19,7 @@ class HouseListViewModel: PagingViewModel<House> {
     var filterSubway: String?
     var sortType: SortType?
 
-    init() {
+    required init() {
         super.init(pullUrl: ServerUrl.houseList)
     }
     

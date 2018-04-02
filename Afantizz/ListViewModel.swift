@@ -23,6 +23,8 @@ class ListViewModel<T: BaseModel>: BaseViewModel {
         self.params = params
     }
     
+    required init() {}
+    
     func pullDownRefresh() {
         willSendRequest()
         Networker.request(url: pullUrl, params: params, success: { [weak self] (jsonStr) in

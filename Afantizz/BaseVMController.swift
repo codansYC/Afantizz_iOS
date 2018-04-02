@@ -8,22 +8,19 @@
 
 import UIKit
 
-class BaseVMController<VM: BaseViewModel>: BaseController, ViewModelProtocol {
+class BaseVMController<VM: BaseViewModel>: BaseController {
 
-    var viewModel: VM! {
-        didSet{
-            if viewModel == nil {
-                return
-            }
-            setUpViewModelBinding()
-        }
+    lazy var viewModel: VM = {
+        let vm = VM.init()
+        setUpBinding(vm)
+        return vm
+    }()
+    
+    func setUpBinding(_ viewModel: VM) {
+        bindRequestError(viewModel)
     }
     
-    func setUpViewModelBinding() {
-        bindRequestError()
-    }
-    
-    func bindRequestError() {
+    func bindRequestError(_ viewModel: VM) {
         
         viewModel.requestError.asObservable().takeUntil(viewModel.rx.deallocating).bind { (error) in
             guard let error = error else {

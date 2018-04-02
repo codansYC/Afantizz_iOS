@@ -29,10 +29,10 @@ class PagingController<M, VM: PagingViewModel<M>>: ListController<M, VM> {
     
     override func setUpTableView() {
         super.setUpTableView()
-        mj_header?.refreshingBlock = { [unowned self] in self.viewModel?.pullDownRefresh() }
+        mj_header?.refreshingBlock = { [unowned self] in self.viewModel.pullDownRefresh() }
         
         mj_footer = MJRefreshBackNormalFooter.init { [unowned self] in
-            self.viewModel?.pullUpLoadMore()
+            self.viewModel.pullUpLoadMore()
         }
         mj_footer?.stateLabel.text = "上拉加载更多"
         mj_footer?.setTitle("—— 好,就到这儿了 ——", for: .noMoreData)
@@ -44,37 +44,32 @@ class PagingController<M, VM: PagingViewModel<M>>: ListController<M, VM> {
         tableView.mj_footer = mj_footer
     }
     
-    override func setUpViewModelBinding() {
-        super.setUpViewModelBinding()
-        guard let viewModel = viewModel  else {
-            return
-        }
+    override func setUpBinding(_ viewModel: VM) {
+        super.setUpBinding(viewModel)
         //控制loading页的显隐以及tableView的上下拉
         viewModel.loadDataStatus.asObservable()
             .takeUntil(viewModel.rx.deallocated)
             .bind(onNext: { [unowned self] (status) in
                 self.isAllowPullUp = true
-            switch status {
-            case .none:
-                return
-            case .pullDownDone:
-                self.tableView.mj_footer?.resetNoMoreData()
-                self.tableView.mj_footer?.endRefreshing()
-            case .pullUpDone:
-                self.tableView.mj_footer?.endRefreshing()
-            case .noData:
-                self.tableView.mj_footer?.endRefreshing()
-                self.isAllowPullUp = false
-            case .noMore:
-                self.tableView.mj_footer?.endRefreshingWithNoMoreData()
-            case .error(let error):
-                self.show(error.msg)
-                self.tableView.mj_footer?.endRefreshing()
-            }
-            self.tableView.mj_header.endRefreshing()
-            if self.isShowLodingView {
-                self.isShowLodingView = false
-            }
+                switch status {
+                case .none:
+                    return
+                case .pullDownDone:
+                    self.tableView.mj_footer?.resetNoMoreData()
+                    self.tableView.mj_footer?.endRefreshing()
+                case .pullUpDone:
+                    self.tableView.mj_footer?.endRefreshing()
+                case .noData:
+                    self.tableView.mj_footer?.endRefreshing()
+                    self.isAllowPullUp = false
+                case .noMore:
+                    self.tableView.mj_footer?.endRefreshingWithNoMoreData()
+                case .error(let error):
+                    self.show(error.msg)
+                    self.tableView.mj_footer?.endRefreshing()
+                }
+                self.tableView.mj_header.endRefreshing()
+                self.removeLoadingViewIfExist()
             }).disposed(by: disposeBag)
         
         //控制errorBackgroudView的UI
@@ -84,16 +79,16 @@ class PagingController<M, VM: PagingViewModel<M>>: ListController<M, VM> {
             .share(replay: 1)
             .takeUntil(viewModel.rx.deallocated)
             .bind { [unowned self] (status) in
-            switch status {
-            case .none:
-                break
-            case .noData:
-                self.errorBackgroudView.show(view: self.tableView, style: .noData)
-            case .error(let error) where error.code == BizConsts.networkPoorCode:
-                self.errorBackgroudView.show(view: self.tableView, style: .noWifi, buttonClick: viewModel.pullDownRefresh)
-            default:
-                self.errorBackgroudView.errorStyle.value = .noError
-            }
+                switch status {
+                case .none:
+                    break
+                case .noData:
+                    self.errorBackgroudView.show(view: self.tableView, style: .noData)
+                case .error(let error) where error.code == BizConsts.networkPoorCode:
+                    self.errorBackgroudView.show(view: self.tableView, style: .noWifi, buttonClick: viewModel.pullDownRefresh)
+                default:
+                    self.errorBackgroudView.errorStyle.value = .noError
+                }
             }.disposed(by: errBgDisposeBag!)
     }
 }

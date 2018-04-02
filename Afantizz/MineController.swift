@@ -16,7 +16,6 @@ class MineController: TableController<MineViewModel>, UITableViewDelegate, UITab
     let sectionH: CGFloat = 10
     let topView = MineTopView()
     let bottomView = MineBottomView()
-    let mineVM = MineViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +35,7 @@ class MineController: TableController<MineViewModel>, UITableViewDelegate, UITab
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        mineVM.getUserInfoIfLogin()
+        viewModel.getUserInfoIfLogin()
     }
     
     func setUpViews() {
@@ -57,14 +56,14 @@ class MineController: TableController<MineViewModel>, UITableViewDelegate, UITab
     }
     
     func setUpEvents() {
-        mineVM.loginState.asObservable().bind { [unowned self] (isLogin) in
+        viewModel.loginState.asObservable().bind { [unowned self] (isLogin) in
             self.topView.loginState.value = isLogin
             self.bottomView.loginState.value = isLogin
         }.disposed(by: disposeBag)
         
         bottomView.actionBtn.rx.tap.bind { [unowned self] in
             if Global.isLogin {
-                self.mineVM.alertTologOff()
+                self.viewModel.alertTologOff()
             } else {
                 Global.toLoginPage()
             }
@@ -128,12 +127,12 @@ class MineController: TableController<MineViewModel>, UITableViewDelegate, UITab
         switch section {
         case 0:
             if row == 0 {
-                mineVM.toMyReleasePageIfLogin()
+                viewModel.toMyReleasePageIfLogin()
             } else {
-                mineVM.toMyCollectionPageIfLogin()
+                viewModel.toMyCollectionPageIfLogin()
             }
         case 1:
-            mineVM.toFeedbackPage()
+            viewModel.toFeedbackPage()
         default:
             break
         }

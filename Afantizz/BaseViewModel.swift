@@ -28,6 +28,8 @@ class BaseViewModel: NSObject {
         requestError.value = BizConsts.networkError
     }
     
+    required override init(){}
+   
 }
 
 

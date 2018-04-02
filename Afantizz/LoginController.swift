@@ -20,7 +20,6 @@ class LoginController: BaseVMController<LoginViewModel> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = LoginViewModel()
         title = "登录"
         setUpViews()
         setUpEvent()

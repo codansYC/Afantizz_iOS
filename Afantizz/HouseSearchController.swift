@@ -22,7 +22,6 @@ class HouseSearchController: TableController<HouseSearchViewModel> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = HouseSearchViewModel()
         setUpViews()
         setUpEvents()
     }

@@ -29,7 +29,6 @@ class HouseListController: PagingController<House, HouseListViewModel>, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = HouseListViewModel()
         navigationItem.title = "所有房源"
         setUpViews()
         

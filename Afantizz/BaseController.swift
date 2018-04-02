@@ -14,14 +14,10 @@ import MBProgressHUD
 class BaseController: UIViewController {
     
     lazy var disposeBag: DisposeBag = DisposeBag()
+    
+    var status = Variable<Status>(.none)
     // loading页
     let loadingView = LoadingBackgroundView()
-    var isShowLodingView = false {
-        didSet{
-            showLoadingView(show: isShowLodingView)
-        }
-    }
-    
     // error页
     let errorBackgroudView = ErrorBackgroundView()
     var errBgDisposeBag: DisposeBag?
@@ -35,27 +31,44 @@ class BaseController: UIViewController {
         view.backgroundColor = UIColor.white
         navigationController?.setBarBackgroundColor(UIColor.navBarColor)
         navigationController?.navigationBar.shadowImage = UIImage()
+        bindingLoadingStatus()
     }
     
-    func showLoadingView(show: Bool) {
-        if show {
-            if loadingView.superview == self {
-                return
-            } else {
-                loadingView.removeFromSuperview()
-                view.addSubview(loadingView)
-                loadingView.layer.zPosition = UIViewLevel.Loading
-                loadingView.snp.makeConstraints({ (make) in
-                    make.edges.equalTo(view)
+    func bindingLoadingStatus() {
+        status.asObservable().bind { [unowned self] (status) in
+            switch status {
+            case .loading:
+                if self.loadingView.superview == self.view {
+                    return
+                }
+                self.view.addSubview(self.loadingView)
+                self.loadingView.layer.zPosition = UIViewLevel.Loading
+                self.loadingView.snp.makeConstraints({ (make) in
+                    make.edges.equalTo(self.view)
                 })
+            default:
+                if self.loadingView.superview != nil {
+                    self.loadingView.removeFromSuperview()
+                }
             }
-        } else {
-            loadingView.removeFromSuperview()
-        }
+        }.disposed(by: disposeBag)
+    }
+    
+    func startLoading() {
+        status.value = .loading
+    }
+    func removeLoadingViewIfExist() {
+        status.value = .done
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    enum Status {
+        case none
+        case loading
+        case done
     }
     
 }
@@ -99,4 +112,7 @@ extension BaseController {
     }
     
 }
+
+
+
 

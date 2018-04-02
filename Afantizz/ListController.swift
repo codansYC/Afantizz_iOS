@@ -24,14 +24,14 @@ class ListController<M, VM: ListViewModel<M>>: TableController<VM> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        isShowLodingView = true
+        showLoading()
     }
     
     override func setUpTableView() {
         super.setUpTableView()
         
         mj_header = MJRefreshNormalHeader(refreshingBlock: { [unowned self] in
-            self.viewModel?.pullDownRefresh()
+            self.viewModel.pullDownRefresh()
         })
         mj_header?.stateLabel.isHidden = true
         tableView.mj_header = mj_header
