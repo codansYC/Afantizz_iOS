@@ -9,7 +9,7 @@
 import UIKit
 import NJKWebViewProgress
 
-class WebViewController: BaseController<BaseViewModel>, NJKWebViewProgressDelegate, UIWebViewDelegate {
+class WebViewController: BaseController, NJKWebViewProgressDelegate, UIWebViewDelegate {
     
     var isModal: Bool?
     var url: URL!
@@ -87,8 +87,8 @@ class WebViewController: BaseController<BaseViewModel>, NJKWebViewProgressDelega
     }
     
     func loadWebPage() {
-        webView.loadRequest(URLRequest.init(url: url))
-        
+        let req = URLRequest.init(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
+        webView.loadRequest(req)
     }
     
     

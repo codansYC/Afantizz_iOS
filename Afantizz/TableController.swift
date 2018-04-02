@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TableController<VM: BaseViewModel>: BaseController<VM> {
+class TableController<VM: BaseViewModel>: BaseVMController<VM> {
 
     var tableView: UITableView!
     

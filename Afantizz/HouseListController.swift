@@ -56,6 +56,7 @@ class HouseListController: PagingController<House, HouseListViewModel>, UITableV
         let leftItem = UIBarButtonItem()
         leftItem.title = "上海"
         leftItem.setTitleTextAttributes([NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15)], for: .normal)
+        leftItem.isEnabled = false
         navigationItem.leftBarButtonItem = leftItem
         
         let rightItem = UIBarButtonItem()
@@ -117,9 +118,6 @@ class HouseListController: PagingController<House, HouseListViewModel>, UITableV
         
         filterV.collectionV.rx.itemSelected.bind { [unowned self] indexPath in
             self.tableView.setContentOffset(CGPoint(x: 0, y: 50), animated: false)
-            self.tableView.snp.makeConstraints({ (make) in
-                make
-            })
             if indexPath.row == self.filterState.rawValue {
                 self.filterViews[indexPath.row].removeFromSuperview()
                 return

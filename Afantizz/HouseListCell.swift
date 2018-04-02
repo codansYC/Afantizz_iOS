@@ -175,7 +175,7 @@ class HouseListCell: UITableViewCell {
                 })
             } else {
                 label.snp.makeConstraints({ (make) in
-                    make.left.equalTo(tagsV.subviews[i-1].snp.right).offset(8)
+                    make.left.equalTo(tagsV.subviews[i-1].snp.right).offset(5)
                     make.centerY.equalTo(tagsV)
                 })
             }

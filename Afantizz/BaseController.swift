@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 import MBProgressHUD
 
-class BaseController<VM: BaseViewModel>: UIViewController {
+class BaseController: UIViewController {
     
     lazy var disposeBag: DisposeBag = DisposeBag()
     // loading页
@@ -26,12 +26,6 @@ class BaseController<VM: BaseViewModel>: UIViewController {
     let errorBackgroudView = ErrorBackgroundView()
     var errBgDisposeBag: DisposeBag?
     
-    // viewModel
-    var viewModel: VM! {
-        didSet{
-            setUpViewModelBinding()
-        }
-    }
     
     // 界面上的hud
     var hud: CMBProgressHUD?
@@ -58,21 +52,6 @@ class BaseController<VM: BaseViewModel>: UIViewController {
         } else {
             loadingView.removeFromSuperview()
         }
-    }
-    
-    func setUpViewModelBinding() {
-        bindRequestError()
-    }
-    
-    func bindRequestError() {
-        viewModel.requestError.asObservable().takeUntil(viewModel.rx.deallocating).bind { (error) in
-            guard let error = error else {
-                self.hud?.hide(animated: true)
-                return
-            }
-            self.resetHud(mode: .text, text: error.msg)
-            self.hideHud(afterDelay: 1)
-        }.disposed(by: disposeBag)
     }
     
     deinit {

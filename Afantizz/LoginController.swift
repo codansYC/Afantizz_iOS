@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class LoginController: BaseController<LoginViewModel> {
+class LoginController: BaseVMController<LoginViewModel> {
 
     var phoneField: UITextField!
     var codeField: UITextField!
@@ -87,10 +87,9 @@ class LoginController: BaseController<LoginViewModel> {
         view.addSubview(loginBtn)
         loginBtn.snp.makeConstraints { (make) in
             make.left.right.equalTo(line2)
+            make.height.equalTo(40)
             make.top.equalTo(line2.snp.bottom).offset(70)
         }
-
-
     }
     
     func setUpEvent() {
@@ -105,17 +104,17 @@ class LoginController: BaseController<LoginViewModel> {
             .bind(to: sendCodeBtn.rx.isEnabled)
         .disposed(by: disposeBag)
             
-        
         sendCodeBtn.rx.tap.bind { [unowned self] _ in
             let phone = self.phoneField.text
             if !Global.validateMobile(phone) {
                 self.show("手机号不正确")
                 return
             }
-            self.viewModel.getCode(phone: phone!).bind(onNext: { [weak self] (_) in
+            self.showLoading()
+            self.viewModel.getCode(phone: phone!) { [weak self] in
                 guard let this = self else { return }
                 this.viewModel.countDown().bind(to: this.sendCodeBtn.rx.title()).disposed(by: this.disposeBag)
-            }).disposed(by: self.disposeBag)
+            }
         }.disposed(by: disposeBag)
         
         Observable.combineLatest(phoneObservable,codeObservable).map { (isPhone, isCaptcha) -> Bool in

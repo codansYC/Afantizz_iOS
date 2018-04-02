@@ -15,4 +15,9 @@ struct App {
     static let buildVersion = Bundle.main.infoDictionary![String(kCFBundleVersionKey)] as! String
     static let platform = "iOS"
     static let key = "EqBAYzVRw2k7FswL"
+    
+    struct Wechat {
+        static let AppID = "wx0c1b9d3a5538e91b"
+        static let AppSecret = "867a6337432f825d73028e44f0c77970"
+    }
 }

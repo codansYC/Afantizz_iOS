@@ -13,5 +13,5 @@ import RxCocoa
 class BaseCollectionView: UICollectionView {
 
     lazy var disposeBag: DisposeBag = DisposeBag()
-
+    
 }

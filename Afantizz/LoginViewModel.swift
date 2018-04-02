@@ -13,24 +13,16 @@ class LoginViewModel: BaseViewModel {
     
     var isCounting = Variable(false)
     
-    func getCode(phone: String) -> Observable<Any> {
-        return Observable.create({ (observer) -> Disposable in
-            let params: [String: Any] = ["phone": phone]
-            let hud = HUDManager.showLoading()
-            Networker.request(url: ServerUrl.getCaptcha, params: params, success: { (jsonStr) in
-                hud?.hide(animated: true)
-                observer.onNext(true)
-                observer.onCompleted()
-            }, error: { (err) in
-                hud?.hide(animated: true)
-                observer.onCompleted()
-            }, networkError: {
-                hud?.hide(animated: true)
-                observer.onCompleted()
-            })
-            return Disposables.create()
+    func getCode(phone: String, success: @escaping (()->Void)) {
+        let params: [String: Any] = ["phone": phone]
+        Networker.request(url: ServerUrl.getCaptcha, params: params, success: { (jsonStr) in
+            self.requestSuccess()
+            success()
+        }, error: { (err) in
+           self.requestFail(err)
+        }, networkError: {
+            self.requestFailWithNetworkPoor()
         })
-        
     }
     
     func login(phone: String, code: String, success: @escaping (()->Void)) {
@@ -42,9 +34,9 @@ class LoginViewModel: BaseViewModel {
             UserDefaults.saveToken(Global.user?.token)
             success()
         }, error: { (err) in
-            self.requestError.value = err
+            self.requestFail(err)
             }, networkError: {
-               self.requestError.value = BizConsts.networkError
+               self.requestFailWithNetworkPoor()
         })
         
     }

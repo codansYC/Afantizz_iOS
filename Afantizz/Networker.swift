@@ -42,7 +42,7 @@ struct Networker {
                 success?(result["data"].rawString())
             case .failure(let error):
                 let ns_err = error as NSError
-                if ns_err.code == BizConsts.networkPoorCode {
+                if ns_err.code <= BizConsts.networkPoorCode {
                     networkError?()
                     return
                 }

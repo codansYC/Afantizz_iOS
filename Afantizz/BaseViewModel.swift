@@ -16,5 +16,19 @@ class BaseViewModel: NSObject {
     var loadDataStatus = Variable(LoadDataStatus.none)
     var requestError: Variable<AfantizzError?> = Variable(nil)
     
+    func requestSuccess() {
+        requestError.value = nil
+    }
+    
+    func requestFail(_ error: AfantizzError) {
+        requestError.value = error
+    }
+    
+    func requestFailWithNetworkPoor() {
+        requestError.value = BizConsts.networkError
+    }
+    
 }
+
+
 

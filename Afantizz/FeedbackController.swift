@@ -9,5 +9,8 @@
 import UIKit
 
 class FeedbackController: WebViewController {
-
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = "意见反馈"
+    }
 }

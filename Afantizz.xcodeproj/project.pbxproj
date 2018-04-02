@@ -48,11 +48,16 @@
 		B93A42961F332566009EBACE /* HouseListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93A42951F332566009EBACE /* HouseListController.swift */; };
 		B93A42981F3325BB009EBACE /* House.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93A42971F3325BA009EBACE /* House.swift */; };
 		B93A429A1F3327DC009EBACE /* HouseListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93A42991F3327DC009EBACE /* HouseListCell.swift */; };
+		B943912B204D522800231BA8 /* BaseVMController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B943912A204D522800231BA8 /* BaseVMController.swift */; };
 		B94A11C2200F9BBC000428C2 /* Timestamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94A11C1200F9BBC000428C2 /* Timestamp.swift */; };
 		B94A11C420106A63000428C2 /* SDKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94A11C320106A63000428C2 /* SDKManager.swift */; };
 		B94A11C62010A5D9000428C2 /* LaunchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94A11C52010A5D9000428C2 /* LaunchController.swift */; };
+		B958E1E2206A52B3005CF42A /* ShareManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B958E1E1206A52B3005CF42A /* ShareManager.swift */; };
+		B958E202206B95C5005CF42A /* ShareOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B958E201206B95C5005CF42A /* ShareOptionView.swift */; };
 		B96C831920182EF200A72DAA /* AfantizzError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96C831820182EF200A72DAA /* AfantizzError.swift */; };
 		B96C831B2018365E00A72DAA /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96C831A2018365E00A72DAA /* BaseModel.swift */; };
+		B97195C6206BA5010029BF38 /* HouseInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97195C5206BA5010029BF38 /* HouseInfoViewModel.swift */; };
+		B97195CA206C876E0029BF38 /* ViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97195C9206C876E0029BF38 /* ViewModelProtocol.swift */; };
 		B97459921F34503600BAB115 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97459911F34503600BAB115 /* WebViewController.swift */; };
 		B97459941F3471FD00BAB115 /* HUDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97459931F3471FD00BAB115 /* HUDManager.swift */; };
 		B97459961F3482E800BAB115 /* ErrorBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97459951F3482E700BAB115 /* ErrorBackgroundView.swift */; };
@@ -138,11 +143,17 @@
 		B93A42951F332566009EBACE /* HouseListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseListController.swift; sourceTree = "<group>"; };
 		B93A42971F3325BA009EBACE /* House.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = House.swift; sourceTree = "<group>"; };
 		B93A42991F3327DC009EBACE /* HouseListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseListCell.swift; sourceTree = "<group>"; };
+		B943912A204D522800231BA8 /* BaseVMController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVMController.swift; sourceTree = "<group>"; };
 		B94A11C1200F9BBC000428C2 /* Timestamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timestamp.swift; sourceTree = "<group>"; };
 		B94A11C320106A63000428C2 /* SDKManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDKManager.swift; sourceTree = "<group>"; };
 		B94A11C52010A5D9000428C2 /* LaunchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchController.swift; sourceTree = "<group>"; };
+		B958E1DA206A468D005CF42A /* Afantizz-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Afantizz-Bridging-Header.h"; sourceTree = "<group>"; };
+		B958E1E1206A52B3005CF42A /* ShareManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareManager.swift; sourceTree = "<group>"; };
+		B958E201206B95C5005CF42A /* ShareOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOptionView.swift; sourceTree = "<group>"; };
 		B96C831820182EF200A72DAA /* AfantizzError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfantizzError.swift; sourceTree = "<group>"; };
 		B96C831A2018365E00A72DAA /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
+		B97195C5206BA5010029BF38 /* HouseInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseInfoViewModel.swift; sourceTree = "<group>"; };
+		B97195C9206C876E0029BF38 /* ViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelProtocol.swift; sourceTree = "<group>"; };
 		B97459911F34503600BAB115 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		B97459931F3471FD00BAB115 /* HUDManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUDManager.swift; sourceTree = "<group>"; };
 		B97459951F3482E700BAB115 /* ErrorBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorBackgroundView.swift; sourceTree = "<group>"; };
@@ -238,6 +249,7 @@
 				B91DEB111F1322ED002B3919 /* Assets.xcassets */,
 				B91DEB131F1322ED002B3919 /* LaunchScreen.storyboard */,
 				B91DEB161F1322ED002B3919 /* Info.plist */,
+				B958E1DA206A468D005CF42A /* Afantizz-Bridging-Header.h */,
 			);
 			path = Afantizz;
 			sourceTree = "<group>";
@@ -301,6 +313,7 @@
 				B97459B51F3AF09500BAB115 /* LoginViewModel.swift */,
 				B97459C81F4045AD00BAB115 /* MineViewModel.swift */,
 				B9FBFE341F42D4F90092AE75 /* HouseListViewModel.swift */,
+				B97195C5206BA5010029BF38 /* HouseInfoViewModel.swift */,
 			);
 			name = ViewModels;
 			sourceTree = "<group>";
@@ -327,6 +340,7 @@
 				B91DEBB81F147028002B3919 /* Networker.swift */,
 				B91DEBBA1F14748D002B3919 /* ServerUrl.swift */,
 				B91DEBC01F14B4EA002B3919 /* BaseController.swift */,
+				B943912A204D522800231BA8 /* BaseVMController.swift */,
 				B91DEBC21F14B524002B3919 /* BaseView.swift */,
 				B91DEBC41F14B544002B3919 /* LoadingBackgroundView.swift */,
 				B91DEBC61F14B902002B3919 /* NavigationController.swift */,
@@ -357,6 +371,9 @@
 				B981DB022021CE250086029D /* PaddingLabel.swift */,
 				B9ADE65920304B18002E8686 /* UserDefaultsKey.swift */,
 				B9ADE65B20304C7E002E8686 /* ConfigManager.swift */,
+				B958E1E1206A52B3005CF42A /* ShareManager.swift */,
+				B958E201206B95C5005CF42A /* ShareOptionView.swift */,
+				B97195C9206C876E0029BF38 /* ViewModelProtocol.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -527,7 +544,7 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AMap.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -578,6 +595,7 @@
 				B9BCDD791F540EEF003282DE /* SlideView.swift in Sources */,
 				B91DEBC11F14B4EA002B3919 /* BaseController.swift in Sources */,
 				B92429F71F4185C900706084 /* FilterView.swift in Sources */,
+				B943912B204D522800231BA8 /* BaseVMController.swift in Sources */,
 				B91DEBBD1F14B13F002B3919 /* UIViewController+extension.swift in Sources */,
 				B92429EF1F413FDD00706084 /* MyCollectionController.swift in Sources */,
 				B91DEBBB1F14748D002B3919 /* ServerUrl.swift in Sources */,
@@ -588,7 +606,9 @@
 				B91DEB0B1F1322ED002B3919 /* AppDelegate.swift in Sources */,
 				B9ADE65C20304C7E002E8686 /* ConfigManager.swift in Sources */,
 				B94A11C62010A5D9000428C2 /* LaunchController.swift in Sources */,
+				B97195C6206BA5010029BF38 /* HouseInfoViewModel.swift in Sources */,
 				B97459BE1F3DB16200BAB115 /* ComplainController.swift in Sources */,
+				B97195CA206C876E0029BF38 /* ViewModelProtocol.swift in Sources */,
 				B97459B41F3AE55A00BAB115 /* LoginController.swift in Sources */,
 				B938E4C31F171B75005F42BF /* TableController.swift in Sources */,
 				B91DEBB91F147028002B3919 /* Networker.swift in Sources */,
@@ -603,6 +623,7 @@
 				B97459AC1F39A35800BAB115 /* HouseSearchController.swift in Sources */,
 				B97459A81F39A27100BAB115 /* CustomSearchView.swift in Sources */,
 				B9242A0D1F41AA3C00706084 /* FirstStyleCell.swift in Sources */,
+				B958E202206B95C5005CF42A /* ShareOptionView.swift in Sources */,
 				B97459941F3471FD00BAB115 /* HUDManager.swift in Sources */,
 				B94A11C2200F9BBC000428C2 /* Timestamp.swift in Sources */,
 				B9FBFE371F43F3330092AE75 /* Defines.swift in Sources */,
@@ -615,6 +636,7 @@
 				B91DEBC51F14B544002B3919 /* LoadingBackgroundView.swift in Sources */,
 				B998B17D201EF75000AF58EA /* TestController.swift in Sources */,
 				B9ADE65A20304B18002E8686 /* UserDefaultsKey.swift in Sources */,
+				B958E1E2206A52B3005CF42A /* ShareManager.swift in Sources */,
 				B92429F31F41434300706084 /* Str.swift in Sources */,
 				B9FBFE331F42A5890092AE75 /* SecondStyleCell.swift in Sources */,
 				B96C831B2018365E00A72DAA /* BaseModel.swift in Sources */,
@@ -767,15 +789,19 @@
 			baseConfigurationReference = 973AF5DD7CEA8605FCD9BB5D /* Pods-Afantizz.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2ANG7P7ES4;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Afantizz/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = lekuai.Afantizz;
+				PRODUCT_BUNDLE_IDENTIFIER = com.afantizz.afantizzTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Afantizz/Afantizz-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -787,15 +813,18 @@
 			baseConfigurationReference = 14B02A5E177DF35E1B850FE3 /* Pods-Afantizz.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2ANG7P7ES4;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Afantizz/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = lekuai.Afantizz;
+				PRODUCT_BUNDLE_IDENTIFIER = com.afantizz.afantizzTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Afantizz/Afantizz-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;

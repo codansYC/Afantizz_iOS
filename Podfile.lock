@@ -42,6 +42,7 @@ PODS:
   - SwiftyJSON (4.0.0)
   - UICKeyChainStore (2.1.1)
   - UIDeviceIdentifier (1.1.1)
+  - WechatOpenSDK (1.8.1)
   - WZLBadge (1.2.6)
 
 DEPENDENCIES:
@@ -72,6 +73,7 @@ DEPENDENCIES:
   - SnapKit (~> 4.0.0)
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
   - UIDeviceIdentifier
+  - WechatOpenSDK
   - WZLBadge
 
 EXTERNAL SOURCES:
@@ -113,8 +115,9 @@ SPEC CHECKSUMS:
   SwiftyJSON: 8cd73b154950360d79292a8dc8c0d0a85d258930
   UICKeyChainStore: 239558492fa260531a0774cfc611ea83a6eaff3a
   UIDeviceIdentifier: 9281343882e24460235f00a0d7d2fc04a65688c6
+  WechatOpenSDK: 491d965d79335070328571d3e79f714549e79a5e
   WZLBadge: 9ec779dcfd94c825518b395e8315fccaabff1bfa
 
-PODFILE CHECKSUM: 2698cf1fec3553720f35797599d09b1b88afcf6e
+PODFILE CHECKSUM: 872194e8cda586d4a42ba392012b275b0636f3d0
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.4.0

@@ -23,8 +23,12 @@ class MineViewModel: BaseViewModel {
         loginState.value = true
         let params: [String: Any] = ["token": token]
         User.request(url: ServerUrl.userInfo, params: params, success: { (user) in
-            Global.user = user
-            self.loginState.value = true
+            if let user = user, !user.phone.isEmpty {
+                Global.user = user
+            } else {
+                Global.user = nil
+            }
+            self.loginState.value = Global.user != nil
         }, error: { [weak self] (err) in
             self?.requestError.value = err
         }) { [weak self] in

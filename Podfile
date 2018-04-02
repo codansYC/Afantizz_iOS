@@ -34,5 +34,6 @@ target 'Afantizz' do
     pod 'NJKWebViewProgress' # Web视图进度条
     pod 'Reveal-SDK', '~> 4', :configurations => ['Debug'] # reveal
     pod 'KMNavigationBarTransition' # 导航栏
+    pod 'WechatOpenSDK'             # 微信SDK
 
 end
